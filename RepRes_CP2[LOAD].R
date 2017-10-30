@@ -54,4 +54,7 @@ source_url_3 <- "https://d396qusza40orc.cloudfront.net/repdata%2Fpeer2_doc%2FNCD
 download.file(source_url_3, destfile = "repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf",
               method = "curl")
 
+# The names of the files are unwieldy; we should consider renaming them...
 
+file.rename("repdata-peer2_doc-pd01016005curr.pdf", "Storm Data Documentation.pdf")
+file.rename("repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf", "Storm Events FAQs.pdf")
