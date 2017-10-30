@@ -8,6 +8,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+The basic goal of this assignment is to explore the NOAA Storm Database and answer some basic questions about severe weather events.
+
 ## Questions
 
 1. Does the analysis address the question of which types of events are most harmful to population health?
@@ -18,6 +20,32 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Does the analysis start from the raw data file (i.e. the original .csv.bz2 file)?
 
+The code below downloads the data from the Coursera webpage for the Reproducible Research Course Project (#2). This is the [link](https://www.coursera.org/learn/reproducible-research/peer/OMZ37/course-project-2) to that page.
+
+```{r download_(meta)_data, message=FALSE, warning=FALSE, cache=TRUE}
+Download_Date <- Sys.Date() # First, fix the date we download the data!
+
+source_url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
+download.file(source_url, destfile = "StormData.csv.bz2", 
+              method = "curl")
+
+source_url_2 <- "https://d396qusza40orc.cloudfront.net/repdata%2Fpeer2_doc%2Fpd01016005curr.pdf"
+download.file(source_url_2, destfile = "repdata-peer2_doc-pd01016005curr.pdf", 
+              method = "curl")
+
+source_url_3 <- "https://d396qusza40orc.cloudfront.net/repdata%2Fpeer2_doc%2FNCDC%20Storm%20Events-FAQ%20Page.pdf"
+download.file(source_url_3,
+              destfile = "repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf",
+              method = "curl")
+```
+
+```{r rename_meta_data_files, message=FALSE, warning=FALSE, cache=TRUE}
+# The names of the files are unwieldy; we should consider renaming them...
+file.rename("repdata-peer2_doc-pd01016005curr.pdf", "Storm Data Documentation.pdf")
+file.rename("repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf", "Storm Events FAQs.pdf")
+```
+
+We've set `cache` to TRUE for the code chunk above to avoid endless downloading during debugging, or when running / knitting the document multiple times. Loading the data into R should also be cached, since it's a slow process with a file of this size.
 
 ## Data Processing
 
