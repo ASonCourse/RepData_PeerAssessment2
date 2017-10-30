@@ -26,8 +26,32 @@ StormData <- read.csv("StormData.csv.bz2", stringsAsFactors = FALSE)
 
 # Confirm the data was imported properly:
 dim(StormData)
+str(StormData)
+head(StormData)
+tail(StormData)
+summary(StormData)
+unique(StormData$EVTYPE)
 
+# Preliminary observations?
+#
+# 1.
+# The data seems to be messy. I've seen entries with leading whitespace and 
+# capitals / lower case seem to have been used randomly...
+#
+# 2.
+# There are 902.297 rows / observations in the data set.
 
-# How many NA's?
+# More information about the data in the file is available via a separate
+# documents:
+
+source_url_2 <- "https://d396qusza40orc.cloudfront.net/repdata%2Fpeer2_doc%2Fpd01016005curr.pdf"
+
+download.file(source_url_2, destfile = "repdata-peer2_doc-pd01016005curr.pdf", 
+              method = "curl")
+
+source_url_3 <- "https://d396qusza40orc.cloudfront.net/repdata%2Fpeer2_doc%2FNCDC%20Storm%20Events-FAQ%20Page.pdf"
+
+download.file(source_url_3, destfile = "repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf",
+              method = "curl")
 
 
