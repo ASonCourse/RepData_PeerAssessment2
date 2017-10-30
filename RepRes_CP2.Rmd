@@ -45,11 +45,21 @@ file.rename("repdata-peer2_doc-pd01016005curr.pdf", "Storm Data Documentation.pd
 file.rename("repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf", "Storm Events FAQs.pdf")
 ```
 
-We've set `cache` to TRUE for the code chunk above to avoid endless downloading during debugging, or when running / knitting the document multiple times. Loading the data into R should also be cached, since it's a slow process with a file of this size.
 
 ## Data Processing
 
 Is there a section titled "Data Processing" that describes how the data were loaded into R and processed for analysis?
+
+The following code reads the downloaded data into R:
+
+```{r importing_StormData, cache=TRUE}
+StormData <- read.csv("StormData.csv.bz2", stringsAsFactors = FALSE)
+```
+
+We've set `cache` to TRUE for the code chunk above to avoid endless importing during debugging, or when running / knitting the document multiple times. Loading the data into R must be cached, since it's a slow process with a file of this size.
+
+Note that unzipping of the downloaded file ("StormData.csv.bz2") is not necessary! It can be read in directly with read.csv(). Maybe we should use read_csv() or fread() [data.table package] instead, because the file is quite large and we might want to experiment a bit first with just a couple of lines / observations before we import the whole file...
+
 
 ## Results
 
