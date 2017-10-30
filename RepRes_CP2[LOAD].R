@@ -13,7 +13,7 @@ download.file(source_url, destfile = "StormData.csv.bz2",
 # Unzip downloaded file (unzipped file -> "StormData.csv"):
 unzip("StormData.csv.bz2", exdir = ".")
 
-# Importing .csv file in R:
+# Reading .csv file into R:
 StormData <- read.csv("StormData.csv", stringsAsFactors = FALSE)
 
 # Confirm the data was imported properly:
