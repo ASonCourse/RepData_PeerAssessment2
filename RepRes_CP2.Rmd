@@ -39,7 +39,7 @@ download.file(source_url_3,
               method = "curl")
 ```
 
-```{r rename_meta_data_files, message=FALSE, warning=FALSE, eval=TRUE, cache=TRUE}
+```{r rename_meta_data_files, echo=TRUE, results="hide", message=FALSE, warning=FALSE, cache=TRUE}
 # The names of the files are unwieldy; we should consider renaming them...
 file.rename("repdata-peer2_doc-pd01016005curr.pdf", "Storm Data Documentation.pdf")
 file.rename("repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf", "Storm Events FAQs.pdf")
@@ -50,7 +50,7 @@ file.rename("repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf", "Storm Events FA
 
 Is there a section titled "Data Processing" that describes how the data were loaded into R and processed for analysis?
 
-Reading the downloaded data into R can be done with `read.csv()`. By using this function we don't have to unzip the compressed file separately, since `read.csv()` can handle this for us. The following code reads the downloaded data into R. We will not run it, however, because this is slow.
+Reading the downloaded data into R can be done with `read.csv()`. By using this function we don't have to unzip the compressed file separately, since `read.csv()` can handle this for us. The following code reads the downloaded data into R. We will _NOT_ run it, however, because this is slow.
 
 ```{r importing_StormData_read.csv, cache=TRUE, eval=FALSE}
 StormData <- read.csv("StormData.csv.bz2", stringsAsFactors = FALSE)
