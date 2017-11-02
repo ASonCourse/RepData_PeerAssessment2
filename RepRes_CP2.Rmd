@@ -22,7 +22,7 @@ Does the analysis start from the raw data file (i.e. the original .csv.bz2 file)
 
 The code below downloads the data from the Coursera webpage for the Reproducible Research Course Project (#2). This is the [link](https://www.coursera.org/learn/reproducible-research/peer/OMZ37/course-project-2) to that page.
 
-```{r download_(meta)_data, message=FALSE, warning=FALSE}
+```{r download_(meta)_data, message=FALSE, warning=FALSE, eval=FALSE, cache=TRUE}
 Download_Date <- Sys.Date() # First, fix the date we download the data!
 
 source_url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
@@ -39,7 +39,7 @@ download.file(source_url_3,
               method = "curl")
 ```
 
-```{r rename_meta_data_files, message=FALSE, warning=FALSE, cache=TRUE}
+```{r rename_meta_data_files, message=FALSE, warning=FALSE, eval=TRUE, cache=TRUE}
 # The names of the files are unwieldy; we should consider renaming them...
 file.rename("repdata-peer2_doc-pd01016005curr.pdf", "Storm Data Documentation.pdf")
 file.rename("repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf", "Storm Events FAQs.pdf")
@@ -50,15 +50,30 @@ file.rename("repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf", "Storm Events FA
 
 Is there a section titled "Data Processing" that describes how the data were loaded into R and processed for analysis?
 
-The following code reads the downloaded data into R:
+Reading the downloaded data into R can be done with `read.csv()`. By using this function we don't have to unzip the compressed file separately, since `read.csv()` can handle this for us. The following code reads the downloaded data into R. We will not run it, however, because this is slow.
 
-```{r importing_StormData, cache=TRUE}
+```{r importing_StormData_read.csv, cache=TRUE, eval=FALSE}
 StormData <- read.csv("StormData.csv.bz2", stringsAsFactors = FALSE)
 ```
 
-We've set `cache` to TRUE for the code chunk above to avoid endless importing during debugging, or when running / knitting the document multiple times. Loading the data into R must be cached, since it's a slow process with a file of this size.
+The `data.table` package provides a much faster way of getting the data into R, so we
+will use that instead:
 
-Note that unzipping of the downloaded file ("StormData.csv.bz2") is not necessary! It can be read in directly with read.csv(). Maybe we should use read_csv() or fread() [data.table package] instead, because the file is quite large and we might want to experiment a bit first with just a couple of lines / observations before we import the whole file...
+```{r install_data.table, message=FALSE, warning=FALSE}
+options(repos="https://cran.rstudio.com" )
+if (!require(data.table)) install.packages("data.table")
+library(data.table)
+```
+
+Note that `fread()` can not handle the unzipping for us. We will have to use the bunzip2 shell command for that. Luckily `fread()` can handle shell commands and process the output:
+
+```{r importing_StormData_fread, cache=TRUE}
+StormData <- fread('bunzip2 -ck StormData.csv.bz2')
+```
+
+We've set `cache` to TRUE for the code chunk above to avoid endless importing during debugging, or when running / knitting the document multiple times. Loading the data into R must be cached. Eventhough `fread()` is a lot faster than `read.csv()` (a couple of seconds versus minutes!), it's still a good idea to prevent the code from running repeatedly.
+
+
 
 
 ## Results
