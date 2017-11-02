@@ -18,6 +18,19 @@ download.file(source_url, destfile = "StormData.csv.bz2",
 # May be we should also consider a faster option because it takes minutes to get the
 # data into R with read.csv(). fread()?
 
+install.packages("data.table")
+library(data.table)
+
+# Unzipping can not be handled by fread(), so we should find a solution for that.
+# It turns out that fread() can process / implement terminal commands and work with
+# the result...
+# This works in terminal: $ bunzip2 -k StormData.csv.bz2
+# ... and takes only a couple of seconds...
+# Inside fread() we need to specify that the result of the unzip command has to
+# be directed to standard output with the -c flag.
+# So let's try this code:
+StormData_fread <- fread('bunzip2 -ck StormData.csv.bz2')
+
 # Also caching should be looked at, because this is going to be an issue when we start
 # writing our R Markdown file.
 
