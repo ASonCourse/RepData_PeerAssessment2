@@ -31,6 +31,17 @@ library(data.table)
 # So let's try this code:
 StormData_fread <- fread('bunzip2 -ck StormData.csv.bz2')
 
+# It seems like this provides equal results, apart from a minor difference:
+all.equal(StormData, StormData_fread)
+# "Datasets have different column modes. First 3: F(numeric!=character)"
+# Column F is different indeed. Numeric vs character.
+# After that was corrected another minor difference remained:
+all.equal(StormData, StormData_fread)
+# "Column 'BGN_LOCATI': 1 string mismatch"
+# Not so easy to determine what is different, but I'm satisfied that fread()
+# delivers the same dataset as read.csv().
+
+
 # Also caching should be looked at, because this is going to be an issue when we start
 # writing our R Markdown file.
 
