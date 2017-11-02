@@ -22,7 +22,7 @@ Does the analysis start from the raw data file (i.e. the original .csv.bz2 file)
 
 The code below downloads the data from the Coursera webpage for the Reproducible Research Course Project (#2). This is the [link](https://www.coursera.org/learn/reproducible-research/peer/OMZ37/course-project-2) to that page.
 
-```{r download_(meta)_data, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+```{r download_(meta)_data, message=FALSE, warning=FALSE}
 Download_Date <- Sys.Date() # First, fix the date we download the data!
 
 source_url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
