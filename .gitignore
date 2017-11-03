@@ -1,0 +1,12 @@
+.DS_Store
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+StormData.csv.bz2
+repdata-peer2_doc-pd01016005curr.pdf
+repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf
+Storm Data Documentation.pdf
+Storm Events FAQs.pdf
+RepRes_CP2.html
+RepRes_CP2_cache/*
