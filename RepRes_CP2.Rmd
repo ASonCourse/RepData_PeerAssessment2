@@ -67,7 +67,7 @@ library(data.table)
 
 Note that `fread()` can not handle the unzipping for us. We will have to use the bunzip2 shell command for that. Luckily `fread()` can handle shell commands and process the output:
 
-```{r importing_StormData_fread, cache=TRUE}
+```{r importing_StormData_fread, message=FALSE, warning=FALSE, cache=TRUE}
 StormData <- fread('bunzip2 -ck StormData.csv.bz2')
 ```
 
