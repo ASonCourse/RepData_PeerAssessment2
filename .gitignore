@@ -1,9 +1,23 @@
+<<<<<<< HEAD
+=======
+.DS_Store
+>>>>>>> dad4cf0bd99f454e6bee3641f36d2ebc4dfc4383
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+<<<<<<< HEAD
 RepRes_CP2.html
 .DS_Store
 Storm Events FAQs.pdf
 Storm Data Documentation.pdf
 StormData.csv.bz2
+=======
+StormData.csv.bz2
+repdata-peer2_doc-pd01016005curr.pdf
+repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf
+Storm Data Documentation.pdf
+Storm Events FAQs.pdf
+RepRes_CP2.html
+RepRes_CP2_cache/*
+>>>>>>> dad4cf0bd99f454e6bee3641f36d2ebc4dfc4383
