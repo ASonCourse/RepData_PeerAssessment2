@@ -61,6 +61,9 @@ boxplot(sqrt(FATALITIES) ~ EVTYPE, data = Heat_Fatalities_Minus_95HW)
 Heat_Fatalities <- StormData[StormData$EVTYPE == "HEAT", c(8, 23)]
 Heat_Fatalities_Minus_95HW <- Heat_Fatalities[Heat_Fatalities$FATALITIES != 583, ]
 
+# Density plots?
+plot(density(Heat_Fatalities$FATALITIES))
+plot(density(EVs_by_Fatalities$FATALITIES))
 
 # Which EVTYPE has more than 100 but less than 500 fatalities?
 StormData[which(StormData$FATALITIES > 100 & StormData$FATALITIES < 500), EVTYPE]
