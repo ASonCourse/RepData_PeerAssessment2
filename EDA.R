@@ -21,6 +21,25 @@ StormData[which(StormData$FATALITIES > 500), BGN_DATE, END_DATE]
 # What happened in 1995?
 # Answer: https://en.wikipedia.org/wiki/1995_Chicago_heat_wave
 
+# How much of an outlier was the 1995 heatwave?
+# Let's make a boxplot:
+Heat_Fatalities <- StormData[StormData$EVTYPE == "HEAT", c(8, 23)]
+Heat_Fatalities_Mean <- mean(Heat_Fatalities$FATALITIES, na.rm = TRUE)
+Heat_Fatalities_Median <- median(Heat_Fatalities$FATALITIES, na.rm = TRUE)
+Heat_Fatalities_Summary <- summary(Heat_Fatalities)
+boxplot(FATALITIES ~ EVTYPE, data = Heat_Fatalities)
+# It seems the 1995 heatwave was an extreme outlier that really distorts / skews
+# the distribution. Removing this outlier may be defensable since there were
+# compounding factors that contributed to the extreme amount of fatalities. Let's
+# see what that does for the plot / distribution.
+Heat_Fatalities_Minus_95HW <- Heat_Fatalities[Heat_Fatalities$FATALITIES != 583, ]
+boxplot(FATALITIES ~ EVTYPE, data = Heat_Fatalities_Minus_95HW)
+Heat_Fatalities_Minus_95HW_Sum <- summary(Heat_Fatalities_Minus_95HW)
+# This brings everything much closer together. The mean is still not equal to the
+# median (indicating a skewed distribution), but the difference is a lot smaller.
+# The plot shows some outliers, but the whiskers still seem to be very close to 0.
+# Looking at a densitiy plot seems interesting.
+
 # Which EVTYPE has more than 100 but less than 500 fatalities?
 StormData[which(StormData$FATALITIES > 100 & StormData$FATALITIES < 500), EVTYPE]
 # Answer: TORNADO, TORNADO, TORNADO
