@@ -40,6 +40,28 @@ Heat_Fatalities_Minus_95HW_Sum <- summary(Heat_Fatalities_Minus_95HW)
 # The plot shows some outliers, but the whiskers still seem to be very close to 0.
 # Looking at a densitiy plot seems interesting.
 
+# Using a log-transformation to get rid of the skewedness didn't work, because
+# there were 0's in the data. (Taking the log of those results in -Inf...). As we've
+# seen Roger Peng do, we could add a very small amount to the zero's to produce
+# a dataset that could be transformed using the log function.
+Heat_Fatalities$FATALITIES[Heat_Fatalities$FATALITIES == 0] <- 0.0001
+# Now we can create boxplots using the log of fatalities:
+boxplot(log(FATALITIES) ~ EVTYPE, data = Heat_Fatalities)
+Heat_Fatalities_Minus_95HW <- Heat_Fatalities[Heat_Fatalities$FATALITIES != 583, ]
+boxplot(log(FATALITIES) ~ EVTYPE, data = Heat_Fatalities_Minus_95HW)
+# Hm, this produces plots with negative values. That's not what
+# we want...
+# How about taking squares?
+boxplot(sqrt(FATALITIES) ~ EVTYPE, data = Heat_Fatalities)
+boxplot(sqrt(FATALITIES) ~ EVTYPE, data = Heat_Fatalities_Minus_95HW)
+# This get's rid of the negative values and brings everything closer together,
+# but the image doesn't improve substantially in comparison with the plot
+# that was produced after filtering out the extreme outlier of the 1995
+# heatwave. Resetting the original values:
+Heat_Fatalities <- StormData[StormData$EVTYPE == "HEAT", c(8, 23)]
+Heat_Fatalities_Minus_95HW <- Heat_Fatalities[Heat_Fatalities$FATALITIES != 583, ]
+
+
 # Which EVTYPE has more than 100 but less than 500 fatalities?
 StormData[which(StormData$FATALITIES > 100 & StormData$FATALITIES < 500), EVTYPE]
 # Answer: TORNADO, TORNADO, TORNADO
