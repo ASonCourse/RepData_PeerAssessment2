@@ -80,6 +80,18 @@ We've set `cache` to TRUE for the code chunk above to avoid endless importing du
 
 Is there a section titled "Results" where the main results are presented?
 
+Preliminary thoughts on the matter:
+
+Which types of events are most harmful to population health???
+
+There seem to be two variables that affect population health: FATALITIES and INJURIES. Possibly events with many fatalities will also show a lot of injuries, but we don't know. Something to find oud. There could be a difference in the top 10 events causing fatalities and injuries. Is an event with many injuries more harmful to population health than an event without injuries where one person died? That's a difficult question to answer, so it's probably best analyse fatalities and injuries together. It would be nice if there was a strong correlation. When there are obvious differences, we should point them out.
+
+Drawing a plot wit injuries (x) and fatalities (y) shows a picture that apparently lacks significant correlation. The other way around (fatalies on X, and injuries on Y) doesn't change that. So there's hardly any meaningful correlation between number of injuries and number of fatalities. The 1995 heatwave resulted in almost 600 deaths, but very few injuries by comparison. On the other hand the 1979 Tornado (Whichita, TX) caused 1700 injuries and 'only' 42 fatalities.
+
+Looking at the totals TORNADO events top the list in both fatalities and injuries. When looking at average number of injuries / fatalities per type of event TORNADO's score higher aswel (more fatalities). Heat-related events cause a higer number of injuries on average, but they occur way less often. Because TORNADO's are very common they have the most impact on the health of the population. See [DO].R and EDA.R for analyses and calculations.
+
+
+
 ## Review Criteria
 
 1. Has either a (1) valid RPubs URL pointing to a data analysis document for this assignment been submitted; or (2) a complete PDF file presenting the data analysis been uploaded?
