@@ -38,3 +38,86 @@ SD_by_impact_on_PopHealth_InjFats <- StormData %>%
 # 6   TORNADO         44      800
 
 # Looks like tornado's are most harmful to the population health...
+# Although heatwaves seem to have caused most fatalities per event.
+
+# Grouping and sumarizing:
+SD_by_group_totals <- StormData %>%
+  group_by(EVTYPE) %>%
+  summarise(fat_total = sum(FATALITIES), inj_total = sum(INJURIES))
+
+# Correlation between fatalities (totalled per EVTYPE) and injuries (totalled
+# per EVTYPE)?
+plot(x = SD_by_group_totals$fat_total, y = SD_by_group_totals$inj_total)
+# There does not seem to be a strong correlation, if anything fatalities and
+# injuries are only lightly correlated.
+
+# What stands out, however is the fact that (taken as a group) TORNADO's
+# have resulted in most fatalities aswell as caused most injuries:
+SD_by_group_totals[SD_by_group_totals$EVTYPE == "TORNADO",]
+
+  #   EVTYPE      fat_total   inj_total
+  #   <chr>       <dbl>       <dbl>
+  # 1 TORNADO     5633       91346
+
+# What if we look at averages per event?
+SD_by_group_means <- StormData %>%
+  group_by(EVTYPE) %>%
+  summarise(fat_mean = mean(FATALITIES), inj_mean = mean(INJURIES))
+
+# Correlation?
+plot(x = SD_by_group_means$fat_mean, y = SD_by_group_means$inj_mean)
+# This produces a fan-like picture, so it's hard to say that there is any
+# correlation between the average number of fatalities and the average
+# number of injuries for events in general. Some seem to result in more
+# deaths, some in more injuries (relatively).
+
+# What are the events with extreme disproportionate ratios injuries /
+# fatalities?
+SD_by_group_means[which.max(SD_by_group_means$fat_mean), ]
+# TORNADOES, TSTM WIND, HAIL
+SD_by_group_means[which.max(SD_by_group_means$inj_mean), ]
+# Heat Wave
+
+
+# Perhaps we should also look at the frequency of certain EVTYPEs
+# occuring...
+SD_by_group_cnt <- StormData %>%
+  group_by(EVTYPE) %>%
+  summarise(N = n()) %>%
+  arrange(desc(N))
+
+# TORNADO's have occured more than 60.000 times, TSTM WIND, almost 220.000
+# times and HAIL nearly 290.000 times (most frequent). So no wonder that these
+# EVTYPEs have had the biggest impact on population health.
+
+# The "Heat Wave" event causing the most injuries on average occurred only
+# once (N = 1)...
+SD_by_group_cnt[which(SD_by_group_cnt$EVTYPE == "Heat Wave"),]
+
+# More generally "HEAT" events only occurred 767 times:
+SD_by_group_cnt[which(SD_by_group_cnt$EVTYPE == "HEAT"),]
+
+# So not only do heat-related events result in more injuries than fatalities
+# on average, but they also happen way less often than TORNADO's etc.
+# Tornado's cause more fatalities on average and are much more common, so
+# policy should primarily be focussed on coping with TORNADO's and the like:
+plot(SD_by_group_cnt$N, type = "l")
+# There is a huge drop-off in the number of occurences per type of event.
+# This is also the case when we look at the percentage of the total number of
+# events registered in the dataset:
+plot(SD_by_group_cnt$N/nrow(StormData), type = "l")
+# Calculating the share of total events for the first few events topping the
+# list shows this clearly aswell:
+sum(SD_by_group_cnt$N[1])
+sum(SD_by_group_cnt$N[1:3])
+sum(SD_by_group_cnt$N[1:5])
+sum(SD_by_group_cnt$N[1:10])
+# in percentages:
+sum(SD_by_group_cnt$N[1])/nrow(StormData)
+sum(SD_by_group_cnt$N[1:3])/nrow(StormData)
+sum(SD_by_group_cnt$N[1:5])/nrow(StormData)
+sum(SD_by_group_cnt$N[1:10])/nrow(StormData)
+
+# So the top 5 events by occurrence represent almost 80% of all events;
+# the top 10 coves almost 90%. Heat Wave / HEAT make up a tiny percentage
+# of events (0.000851161, less than 1/10th of a percent, actually).
