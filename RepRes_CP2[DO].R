@@ -47,6 +47,10 @@ SD_by_group_totals <- StormData %>%
 
 # Correlation between fatalities (totalled per EVTYPE) and injuries (totalled
 # per EVTYPE)?
+
+###########################################
+## THIS PRODUCES THE MOST TELLING PLOT -->>
+###########################################
 plot(x = SD_by_group_totals$fat_total, y = SD_by_group_totals$inj_total)
 # There does not seem to be a strong correlation, if anything fatalities and
 # injuries are only lightly correlated.
