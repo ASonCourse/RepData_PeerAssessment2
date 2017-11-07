@@ -125,3 +125,38 @@ sum(SD_by_group_cnt$N[1:10])/nrow(StormData)
 # So the top 5 events by occurrence represent almost 80% of all events;
 # the top 10 coves almost 90%. Heat Wave / HEAT make up a tiny percentage
 # of events (0.000851161, less than 1/10th of a percent, actually).
+
+# WHICH EVENTS HAVE GREATEST ECONOMIC CONSEQUENCES?
+
+# Let's look at the amount of property / crop damage. The monetary value of the
+# damage consists of a number plus an exponent. This exponent should be a "K",
+# "M" or a "B" -- times $ 1.000, times $ 1.000.000, or times $ 1.000.000.000...
+unique(StormData$PROPDMGEXP)
+unique(StormData$CROPDMGEXP)
+# Produces lists that are considerably longer. What is the impact of the entries
+# that are not conform to spec? How many are there?
+Proper_PROPDMGEXP <- StormData[StormData$PROPDMGEXP %in% c("K", "M", "B"), ]
+unique(Proper_PROPDMGEXP$PROPDMGEXP)
+# "K" "M" "B"
+nrow(Proper_PROPDMGEXP)
+# 436035
+nrow(Proper_PROPDMGEXP) / nrow(StormData)
+# 0.48325
+# So more than half of the data entries are not up to spec...
+# This introduces a HUGE problem, because of missing / potentially erroneus data.
+# We should assume the amounts entered are correct if the exponent is up to spec,
+# but data entry errors could have massive impact aswell -- damage could be off
+# by a factor 1.000 or even 1.000.000 times more / less if the wrong exponent
+# was used...
+
+Proper_CROPDMGEXP <- StormData[StormData$CROPDMGEXP %in% c("K", "M", "B"), ]
+unique(Proper_CROPDMGEXP$CROPDMGEXP)
+# "M" "K" "B"
+nrow(Proper_CROPDMGEXP)
+# 283835
+nrow(Proper_CROPDMGEXP) / nrow(StormData)
+# 0.3145694
+# The proportion of improperly entered data for the exponent of the crop damage
+# value is even larger...
+# So there is a potentially HUGE problem here, aswell.
+# Should we exclude the data that was not entered properly?
