@@ -160,3 +160,28 @@ nrow(Proper_CROPDMGEXP) / nrow(StormData)
 # value is even larger...
 # So there is a potentially HUGE problem here, aswell.
 # Should we exclude the data that was not entered properly?
+
+
+# HOW ABOUT THE QUALITY OF DATA ENTERED AS EVTYPE?
+length(unique(StormData$EVTYPE))
+# 985... That's way more than one would expect!
+unique(StormData$EVTYPE)
+# This produces a list with most values in CAPITALS. Presumably this is the
+# way data should have been entered, lower case letters indicate erroneus
+# data (potentially / likely). Can we get a grip on the proportion of
+# problematic entries for EVTYPE?
+# The Storm Data Event Table lists only about 50 events that can be entered,
+# so there's an enormous difference. The events in the list are printed in
+# lowercase (but Capitalized), so maybe these cover identical events
+# entered in all caps?
+# How many EVTYPEs containing one or more lower case letters are there?
+EVTYPE_List <- unique(StormData$EVTYPE)
+EVTYPE_List_lowercase <- grep("[a-z]+", EVTYPE_List, value = T)
+length(EVTYPE_List_lowercase)
+# 193 EVTYPES with one or more lower case letters...
+# Only capitals?
+# Use the invert = TRUE flag in the grep() function!
+EVTYPE_List_UPPERCASE <- grep("[a-z]+", EVTYPE_List, value = T, invert = T)
+length(EVTYPE_List_UPPERCASE)
+# 792
+# That's still way more than the 50 types one would expect...
