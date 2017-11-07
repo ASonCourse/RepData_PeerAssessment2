@@ -185,3 +185,44 @@ EVTYPE_List_UPPERCASE <- grep("[a-z]+", EVTYPE_List, value = T, invert = T)
 length(EVTYPE_List_UPPERCASE)
 # 792
 # That's still way more than the 50 types one would expect...
+
+# SOLUTION?
+# There seems to be a lot of dirty data -- the difference between 50
+# types of events and almost 1.000 is ridiculous. We have to filter out
+# the allowed entries, so it's best to get the list from the Storm Data
+# Event Table and filter out the matching entries...
+# Bring in the text-editor!
+# Copied the information from the PDF-file to BBEdit and created the
+# list of possible events.
+Allowed_EVTYPEs <- c("Astronomical Low Tide",
+                     "Avalanche",
+                     "Blizzard", "Coastal Flood", "Cold/Wind Chill",
+                     "Debris Flow", "Dense Fog", "Dense Smoke",
+                     "Drought", "Dust Devil", "Dust Storm",
+                     "Excessive Heat", "Extreme Cold/Wind Chill",
+                     "Flash Flood", "Flood",
+                     "Frost/Freeze", "Funnel Cloud", "Freezing Fog",
+                     "Hail", "Heat", "Heavy Rain", "Heavy Snow",
+                     "High Surf", "High Wind", "Hurricane (Typhoon)",
+                     "Ice Storm", "Lake-Effect Snow", "Lakeshore Flood",
+                     "Lightning", "Marine Hail", "Marine High Wind",
+                     "Marine Strong Wind", "Marine Thunderstorm Wind",
+                     "Rip Current", "Seiche", "Sleet", "Storm Surge/Tide",
+                     "Strong Wind", "Thunderstorm Wind", "Tornado",
+                     "Tropical Depression", "Tropical Storm", "Tsunami",
+                     "Volcanic Ash", "Waterspout", "Wildfire", "Winter Storm",
+                     "Winter Weather")
+
+# For reproducibility here's the description of what I did to get the list
+# of allowed events:
+# Found " Z ", " C ", and " M " in copied text. Replaced that with \n to get a
+# list. Removed " Z" from the last values (copied two lists seperately). 
+# Corrected apparent typo in "V olcanic Ash" (removed space between V and
+# olcanic). Wrapped each line in "". Added a comma plus one space to the end of
+# each line except the last one. Removed all \n from the list; copied the line
+# of text to R.
+
+length(Allowed_EVTYPEs)
+# 48
+# So there should only be 48 event types. Or 96 if we ignore the case in which
+# the entries are set.
