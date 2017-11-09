@@ -160,6 +160,17 @@ nrow(Proper_CROPDMGEXP) / nrow(StormData)
 # value is even larger...
 # So there is a potentially HUGE problem here, aswell.
 # Should we exclude the data that was not entered properly?
+# I think there's no other way — there is just to much data to manually
+# examine. One would have to check every single improper entry and
+# possibly correct it by consulting the narrative of the event.
+# So we filter the dataset:
+SD_CLEAN <- SD_Allowed_EVTYPEs %>%
+  filter(PROPDMGEXP %in% c("K", "M", "B")) %>%
+  filter(CROPDMGEXP %in% c("K", "M", "B"))
+# The resulting dataset is less than a third the size of the original:
+nrow(SD_CLEAN) / nrow(StormData)
+# 0.3014008
+
 
 
 # HOW ABOUT THE QUALITY OF DATA ENTERED AS EVTYPE?
