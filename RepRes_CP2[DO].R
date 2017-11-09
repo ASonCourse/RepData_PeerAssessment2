@@ -262,3 +262,15 @@ Missing_EVTYPEs
 sort(unique(toupper(SD_Allowed_EVTYPEs$EVTYPE)))
 # and
 Allowed_EVTYPEs$UpperCase
+
+# Does cleaning the dataset so rigorously make a difference for the analyses?
+# Compare:
+plot(x = SD_by_group_totals$fat_total, y = SD_by_group_totals$inj_total)
+# With this:
+SD_Allowed_by_group_totals <- SD_Allowed_EVTYPEs %>%
+  group_by(EVTYPE) %>%
+  summarise(fat_total = sum(FATALITIES), inj_total = sum(INJURIES))
+plot(x = SD_Allowed_by_group_totals$fat_total, 
+     y = SD_Allowed_by_group_totals$inj_total)
+# Visually the plot hardly changes at all. Especially the most important
+# fact (TORNADO have the biggest impact) remains.
