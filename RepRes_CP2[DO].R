@@ -245,3 +245,20 @@ length(unique(SD_Allowed_EVTYPEs$EVTYPE))
 # There are only 59 unique values for EVTYPE in the dataset now,
 # so not all event types allowed appear in both lower and upper case.
 # Looking at the values, we see mostly all upper case entries.
+length(grep("[a-z]+", unique(SD_Allowed_EVTYPEs$EVTYPE), value = T))
+# There are exactly 13 entries with one or more lower case letters.
+length(grep("[a-z]+", unique(SD_Allowed_EVTYPEs$EVTYPE), value = T, invert = T))
+# And 46 entries without any lower case characters.
+# There could potentially be 48, so that's practically all of them.
+# When we ignore the case of the entries (by converting them all to upper
+# case), there are still 46 unique values.
+# So there are two EVTYPE's that could be entered, but have not been
+# entered. In other words: these event types did not occur.
+Missing_EVTYPEs <- Allowed_EVTYPEs[!is.element(Allowed_EVTYPEs$UpperCase, 
+                    unique(toupper(SD_Allowed_EVTYPEs$EVTYPE))), ]
+Missing_EVTYPEs
+# So DEBRIS FLOW and HURRICANE (TYPHOON) are the missing EVTYPE's.
+# We check this visually by comparing the results from:
+sort(unique(toupper(SD_Allowed_EVTYPEs$EVTYPE)))
+# and
+Allowed_EVTYPEs$UpperCase
