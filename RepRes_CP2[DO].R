@@ -165,11 +165,15 @@ nrow(Proper_CROPDMGEXP) / nrow(StormData)
 # possibly correct it by consulting the narrative of the event.
 # So we filter the dataset:
 SD_CLEAN <- SD_Allowed_EVTYPEs %>%
-  filter(PROPDMGEXP %in% c("K", "M", "B")) %>%
-  filter(CROPDMGEXP %in% c("K", "M", "B"))
+  filter(PROPDMGEXP %in% c("K", "k", "M", "m", "B", "b")) %>%
+  filter(CROPDMGEXP %in% c("K", "k", "M", "m", "B", "b"))
 # The resulting dataset is less than a third the size of the original:
 nrow(SD_CLEAN) / nrow(StormData)
-# 0.3014008
+# 0.3014174
+# Including the lower case versions of "K", "M", and "B" makes only a
+# small difference (a fraction of a percent), but still. These mistakes
+# can be corrected / forgiven.
+
 
 
 
