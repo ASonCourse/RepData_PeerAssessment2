@@ -301,3 +301,9 @@ plot(x = SD_CLEAN_by_group_totals$fat_total,
 # The picture changes somewhat, but the main takeaway remains. TORNADO's
 # cause the most injuries and the most fatalities in total. The numbers
 # (totals per event) are substantially lower, however.
+
+
+# ANALYSE EVENTS WITH REGARD TO PROPERTY AND CROP DAMAGE:
+# ADD COLUMS FOR CALCULATED PROPERTY AND CROP DAMAGE...
+SD_CLEAN_CALC <- SD_CLEAN %>%
+  mutate(CALC_PROPDMG = 0, CALC_CROPDMG = 0)
