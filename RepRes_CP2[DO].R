@@ -289,3 +289,15 @@ plot(x = SD_Allowed_by_group_totals$fat_total,
      y = SD_Allowed_by_group_totals$inj_total)
 # Visually the plot hardly changes at all. Especially the most important
 # fact (TORNADO have the biggest impact) remains.
+
+# What if we take the removal of improper entries for the exponent values
+# PROPDMGEXP and CROPDMGEXP in to account? What does the picture look like
+# then?
+SD_CLEAN_by_group_totals <- SD_CLEAN %>%
+  group_by(EVTYPE) %>%
+  summarise(fat_total = sum(FATALITIES), inj_total = sum(INJURIES))
+plot(x = SD_CLEAN_by_group_totals$fat_total, 
+     y = SD_CLEAN_by_group_totals$inj_total)
+# The picture changes somewhat, but the main takeaway remains. TORNADO's
+# cause the most injuries and the most fatalities in total. The numbers
+# (totals per event) are substantially lower, however.
