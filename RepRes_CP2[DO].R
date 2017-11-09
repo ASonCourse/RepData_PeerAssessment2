@@ -226,3 +226,22 @@ length(Allowed_EVTYPEs)
 # 48
 # So there should only be 48 event types. Or 96 if we ignore the case in which
 # the entries are set.
+
+# Changed Allowed_EVTYPEs to data.frame, while adding a second column with the
+# allowed EVTYPE's in capitals. Let's filter StormData, so that it only contains
+# EVTYPE's that are present in either of the two colums:
+SD_Allowed_EVTYPEs <- StormData %>%
+  filter(EVTYPE %in% Allowed_EVTYPEs$LowerCase | EVTYPE %in% Allowed_EVTYPEs$UpperCase)
+
+# This reduces the dataset substantially:
+nrow(StormData)
+# 902297
+nrow(SD_Allowed_EVTYPEs)
+# 635348
+nrow(SD_Allowed_EVTYPEs) / nrow(StormData)
+# 0.7041451
+# So, about 30% of the data was not entered correctly...
+length(unique(SD_Allowed_EVTYPEs$EVTYPE))
+# There are only 59 unique values for EVTYPE in the dataset now,
+# so not all event types allowed appear in both lower and upper case.
+# Looking at the values, we see mostly all upper case entries.
