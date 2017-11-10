@@ -94,6 +94,40 @@ unique(StormData$EVTYPE)[sample(length(unique(StormData$EVTYPE)), 9)]
 
 There appears to be some [cruft](https://www.urbandictionary.com/define.php?term=cruft) — data values that have not been selected from the Storm Data Event Table. The majority of the `EVTYPE` values entered have been typed in UPPER CASE, so this should be considered the prescribed way of entering data. Most entries conform, but a number of them are (partly) in lower case.
 
+Since it's not possible to look at all of the extra unique values for `EVTYPE` separately and transform each one to a valid entry if possible we will get rid of the non-conforming values. We will try to match the `EVTYPE` values in the dataset with the list of valid values (as contained in the Storm Data Event Table). Values that match, but contain lower case letters will be considered valid entries. Exact matches too, of course.
+
+We've created a character vector with all the valid `EVTYPE` values by copying the list from page 6 of the Storm Data Documentation file. We used a texteditor to whip things into shape. In oder to keep everything reproducible, here's what we did:
+
+- Found " Z ", " C ", and " M " in copied text. Replaced that with newline characters to get a list.
+- Removed " Z" from the last values (copied two lists seperately).
+- Corrected apparent typo in "V olcanic Ash" (removed space between V and olcanic).
+- Wrapped each line in quotes.
+- Added a comma plus one space to the end of each line except the last one.
+- Removed all newline characters from the list; copied the single line of text to R.
+
+Subsequently we assigned this list to the variable `Allowed_EVTYPEs`:
+
+```{r create_variable_Allowed_EVTYPEs, message=FALSE, warning=FALSE, cache=TRUE}
+Allowed_EVTYPEs <- c("Astronomical Low Tide",
+                     "Avalanche",
+                     "Blizzard", "Coastal Flood", "Cold/Wind Chill",
+                     "Debris Flow", "Dense Fog", "Dense Smoke",
+                     "Drought", "Dust Devil", "Dust Storm",
+                     "Excessive Heat", "Extreme Cold/Wind Chill",
+                     "Flash Flood", "Flood",
+                     "Frost/Freeze", "Funnel Cloud", "Freezing Fog",
+                     "Hail", "Heat", "Heavy Rain", "Heavy Snow",
+                     "High Surf", "High Wind", "Hurricane (Typhoon)",
+                     "Ice Storm", "Lake-Effect Snow", "Lakeshore Flood",
+                     "Lightning", "Marine Hail", "Marine High Wind",
+                     "Marine Strong Wind", "Marine Thunderstorm Wind",
+                     "Rip Current", "Seiche", "Sleet", "Storm Surge/Tide",
+                     "Strong Wind", "Thunderstorm Wind", "Tornado",
+                     "Tropical Depression", "Tropical Storm", "Tsunami",
+                     "Volcanic Ash", "Waterspout", "Wildfire", "Winter Storm",
+                     "Winter Weather")
+```
+
 
 ## Results
 
