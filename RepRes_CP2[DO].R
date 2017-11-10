@@ -352,3 +352,19 @@ SD_CLEAN_CALC_by_group_totals <- SD_CLEAN_CALC_by_group_totals %>%
   mutate(total_dmg = prop_dmg_total + crop_dmg_total)
 
 barplot(SD_CLEAN_CALC_by_group_totals$total_dmg)
+
+# What kind of event caused the most property damage in total?
+SD_CLEAN_CALC_by_group_totals[which.max(SD_CLEAN_CALC_by_group_totals$prop_dmg_total),
+                              c("EVTYPE", "prop_dmg_total")]
+# Looks like flood was to blame:
+# FLOOD   132836489050
+
+# What kind of event caused the most crop damage in total?
+SD_CLEAN_CALC_by_group_totals[which.max(SD_CLEAN_CALC_by_group_totals$crop_dmg_total),
+                              c("EVTYPE", "crop_dmg_total")]
+# Als flood:
+# FLOOD     5170955450
+
+
+
+# Similar plots for injuries / fatalities?
