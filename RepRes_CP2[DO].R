@@ -328,4 +328,27 @@ SD_CLEAN_CALC_by_group_totals <- SD_CLEAN_CALC %>%
   group_by(EVTYPE) %>%
   summarise(prop_dmg_total = sum(CALC_PROPDMG), crop_dmg_total = sum(CALC_CROPDMG))
 
-#
+# Plot total crop damage vs total property damage per event:
+plot(x = SD_CLEAN_CALC_by_group_totals$crop_dmg_total,
+     y = SD_CLEAN_CALC_by_group_totals$prop_dmg_total)
+
+# What stands out is the event that has the maximum crop damage and the
+# maximum propery damage (by far). What EVTYPE is that?
+SD_CLEAN_CALC_by_group_totals %>%
+  arrange(desc(prop_dmg_total))
+# FLOOD!
+# The flood EVTYPE causes the most damage to property and crops (in total).
+SD_CLEAN_CALC_by_group_totals %>%
+  arrange(desc(crop_dmg_total))
+# ICE STORM events cause a lot of crop damage as well, so do HAIL, DROUGHT,
+# FLASH FLOOD, etc.
+# The total crop damage amounts per event are magnitudes smaller than the
+# total damage to property, however. Let's create some barplots:
+barplot(SD_CLEAN_CALC_by_group_totals$prop_dmg_total)
+barplot(SD_CLEAN_CALC_by_group_totals$prop_dmg_total)
+
+# Add a column with total damage per EVTYPE (property plus crop damage):
+SD_CLEAN_CALC_by_group_totals <- SD_CLEAN_CALC_by_group_totals %>%
+  mutate(total_dmg = prop_dmg_total + crop_dmg_total)
+
+barplot(SD_CLEAN_CALC_by_group_totals$total_dmg)
