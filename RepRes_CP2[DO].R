@@ -245,6 +245,9 @@ length(Allowed_EVTYPEs)
 # Changed Allowed_EVTYPEs to data.frame, while adding a second column with the
 # allowed EVTYPE's in capitals. Let's filter StormData, so that it only contains
 # EVTYPE's that are present in either of the two colums:
+Allowed_EVTYPEs <- data.frame(LowerCase = Allowed_EVTYPEs,
+                              UpperCase = toupper(Allowed_EVTYPEs))
+
 SD_Allowed_EVTYPEs <- StormData %>%
   filter(EVTYPE %in% Allowed_EVTYPEs$LowerCase | EVTYPE %in% Allowed_EVTYPEs$UpperCase)
 
