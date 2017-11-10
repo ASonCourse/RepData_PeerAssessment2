@@ -153,6 +153,10 @@ This has substantially reduced the size of the dataset:
 str(StormData)
 ```
 
+We now have `r nrow(StormData)` observations left.
+
+
+
 ## Results
 
 Is there a section titled "Results" where the main results are presented?
