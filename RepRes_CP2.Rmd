@@ -140,7 +140,18 @@ Let's take a peek (sample) at what this data.frame contains:
 Allowed_EVTYPEs[sample(nrow(Allowed_EVTYPEs), 5),]
 ```
 
+Now that we have the list of allowed event types we can filter the original dataset:
 
+```{r filter_Allowed_EVTYPEs, message=FALSE, warning=FALSE, cache=TRUE}
+StormData <- StormData %>%
+  filter(EVTYPE %in% Allowed_EVTYPEs$LowerCase | EVTYPE %in% Allowed_EVTYPEs$UpperCase)
+```
+
+This has substantially reduced the size of the dataset:
+
+```{r structure_cleaned_StormData_1, message=FALSE, warning=FALSE, cache=TRUE}
+str(StormData)
+```
 
 ## Results
 
