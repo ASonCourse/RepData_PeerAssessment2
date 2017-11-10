@@ -155,6 +155,12 @@ str(StormData)
 
 We now have `r nrow(StormData)` observations left.
 
+There are some event types set in lower case. Let's fix that, so that we can group the event types properly:
+
+```{r set_all_EVTYPEs_to_UPPER, message=FALSE, warning=FALSE, cache=TRUE}
+StormData$EVTYPE <- toupper(StormData$EVTYPE)
+```
+
 
 
 ## Results
