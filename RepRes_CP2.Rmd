@@ -7,13 +7,13 @@ output: html_document
 
 ## Summary
 
-This report analyses the effects of severe weather events in the US. The NOAA Storm Database was used to determine which weather events cause injury, death, property and crop damage. The database covers the period 1950 - 2011. It provides information on more than 900,000 weather events. After we removed improper entries from the dataset we were left with about 270,000 events. These events were grouped by event type, after which the total number of injuries / fatalities per type were calculated. The total damage to property / crops was produced too. As was the number of events in each group. The analysis shows that tornadoes have the biggest impact on public health, since they are responsible for the highest number of injuries and fatalities. Floods cause most of the damage to property and crops.
+This report analyses the effects of severe weather events in the US. The [NOAA](http://www.noaa.gov) Storm Database was used to determine which weather events cause injury, death, property and crop damage. The database covers the period 1950 - 2011. It provides information on more than 900,000 weather events. After we removed improper entries from the dataset we were left with about 270,000 events. These events were grouped by event type, after which the total number of injuries / fatalities per type were calculated. The total damage to property / crops was produced too. As was the number of events in each group. The analysis shows that tornadoes have the biggest impact on public health, since they are responsible for the highest number of injuries and fatalities. Floods cause most of the damage to property and crops.
 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-The basic goal of this assignment is to explore the NOAA Storm Database and answer some basic questions about severe weather events.
+
 
 ## Questions
 
