@@ -67,7 +67,24 @@ StormData <- fread('bunzip2 -ck StormData.csv.bz2')
 
 [next: analysing the dataset, pointing out issues (dmg exponents, number of event types)]
 
+StormData contains `r length(names(StormData))` variables and `r nrow(StormData)` observations. Using `dplyr`, we will reduce the number of variables by removing the irrelevant colums:
 
+```{r install_dplyr, message=FALSE, warning=FALSE, cache=TRUE}
+options(repos = "https://cran.rstudio.com")
+if (!require(dplyr)) install.packages("dplyr")
+library(dplyr)
+```
+
+```{r select_relevant_variables, message=FALSE, warning=FALSE, cache=TRUE}
+StormData <- StormData %>%
+  select(EVTYPE, FATALITIES, INJURIES, PROPDMG, PROPDMGEXP, CROPDMG, CROPDMGEXP)
+```
+
+So we've reduced the number of variables / columns to `r length(names(StormData))`. Let's sample some of it to see what's in there:
+
+```{r sample_StormData, message=FALSE, warning=FALSE, cache=TRUE}
+StormData[sample(nrow(StormData), 8),]
+```
 
 
 ## Results
