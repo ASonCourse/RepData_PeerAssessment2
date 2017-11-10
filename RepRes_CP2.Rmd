@@ -128,6 +128,19 @@ Allowed_EVTYPEs <- c("Astronomical Low Tide",
                      "Winter Weather")
 ```
 
+So there are indeed `r length(Allowed_EVTYPEs)` possible values for `EVTYPE`, or double that amount if we accept both lower and upper versions. To this end we convert the vector to a data.frame and add a column containing the same values in upper case:
+
+```{r expand_Allowed_EVTYPEs_with_UPPER_CASE, message=FALSE, warning=FALSE, cache=TRUE}
+Allowed_EVTYPEs <- data.frame(LowerCase = Allowed_EVTYPEs, UpperCase = toupper(Allowed_EVTYPEs))
+```
+
+Let's take a peek (sample) at what this data.frame contains:
+
+```{r sample_Allowed_EVTYPEs, message=FALSE, warning=FALSE, cache=TRUE}
+Allowed_EVTYPEs[sample(nrow(Allowed_EVTYPEs), 5),]
+```
+
+
 
 ## Results
 
