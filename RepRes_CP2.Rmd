@@ -7,7 +7,7 @@ output: html_document
 
 ## Summary
 
-This report analyses the effects of severe weather events in the US. The [NOAA](http://www.noaa.gov) Storm Database was used to determine which weather events cause injury, death, property and crop damage. The database covers the period 1950 - 2011. It provides information on more than 900,000 weather events. After we removed improper entries from the dataset we were left with about 270,000 events. These events were grouped by event type, after which the total number of injuries / fatalities per type were calculated. The total damage to property / crops was produced too. As was the number of events in each group. The analysis shows that [tornadoes](https://en.wikipedia.org/wiki/Tornado) have the biggest impact on public health, since they are responsible for the highest number of injuries and fatalities. [Floods](https://en.wikipedia.org/wiki/Flood) cause most of the damage to property and crops.
+This report analyses the effects of severe weather events in the US. The [NOAA](http://www.noaa.gov) Storm Database was used to determine which weather events cause injury, death, property and crop damage. The database covers the period 1950 - 2011. It provides information on more than 900,000 weather events. After we removed improper entries from the dataset we were left with about 635,000 events. These events were grouped by event type, after which the total number of injuries / fatalities per type were calculated. The total damage to property / crops was produced too. As was the number of events in each group. The analysis shows that [tornadoes](https://en.wikipedia.org/wiki/Tornado) have the biggest impact on public health, since they are responsible for the highest number of injuries and fatalities. [Floods](https://en.wikipedia.org/wiki/Flood) cause most of the damage to property and crops.
 
 
 ```{r setup, include=FALSE}
@@ -161,20 +161,47 @@ There are some event types set in lower case. Let's fix that, so that we can gro
 StormData$EVTYPE <- toupper(StormData$EVTYPE)
 ```
 
+We are confronted with a similar issue when we look at the values that have been entered for the variables `PROPDMGEXP` and `CROPDMGEXP`. The allowed values are "K", "M", and "B", but there are more than 3 unique entries. `r length(unique(StormData$PROPDMGEXP))` and `r length(unique(StormData$CROPDMGEXP))` respectively. Non conforming entries can't be used to calculate the actual amount of damage, so we have to ignore those values. Observations without any damage have "" as a value for the damage exponents, so we'll set variable to the same for non conforming entries. When proper values ("K/k", "M/m", or "B/b") are entered we'll transform these values to 1000, 1,000,000 and 1,000,000,000 respectively so that we can calculate and compare the property / crop damage per event type.
+
+```{r transform_PROPDMGEXP, message=FALSE, warning=FALSE, cache=TRUE}
+StormData$PROPDMGEXP<- ifelse(StormData$PROPDMGEXP %in% c("K", "k"), 1000,
+                    ifelse(StormData$PROPDMGEXP %in% c("M", "m"), 1000000,
+                  ifelse(StormData$PROPDMGEXP %in% c("B", "b"), 1000000000, "")))
+```
+
+```{r transform_CROPDMGEXP, message=FALSE, warning=FALSE, cache=TRUE}
+StormData$CROPDMGEXP<- ifelse(StormData$CROPDMGEXP %in% c("K", "k"), 1000,
+                    ifelse(StormData$CROPDMGEXP %in% c("M", "m"), 1000000,
+                  ifelse(StormData$CROPDMGEXP %in% c("B", "b"), 1000000000, "")))
+```
+
+No that we have numbers as exponent values we can calculate the damage to property and crops per event. After calculating `PROPDMG` and `CROPDMG` by multiplying the values by the exponents we can do away with the `PROPDMGEXP` and `CROPDMGEXP` variables.
+
+```{r calculating_PROPDMG_CROPDMG, message=FALSE, warning=FALSE, cache=TRUE}
+StormData$PROPDMG <- StormData$PROPDMG * as.integer(StormData$PROPDMGEXP)
+StormData$CROPDMG <- StormData$CROPDMG * as.integer(StormData$CROPDMGEXP)
+```
+
 Now group the data by `EVTYPE` and calculate:
 
 - number of events per group
 - total fatalities and injuries for each group
 - average fatalities and injuries per group (per event)
+- total property and crop damage for each group
+- average property and crop damage per group (per event)
 
 ```{r group_by_EVTYPEs, message=FALSE, warning=FALSE, cache=TRUE}
 StormData_Grouped_By_EVTYPE <- StormData %>%
   group_by(EVTYPE) %>%
   summarise(CNT = n(), PCT = round(CNT/nrow(StormData)*100, 1),
             TOT_FAT = sum(FATALITIES), TOT_INJ = sum(INJURIES),
-            AV_FAT = round(mean(FATALITIES),3), AV_INJ = round(mean(INJURIES), 3)) %>%
-  arrange(desc(TOT_FAT), desc(TOT_INJ))
-StormData_Grouped_By_EVTYPE
+            AV_FAT = round(mean(FATALITIES),3), AV_INJ = round(mean(INJURIES), 3),
+            TOT_PROPDMG = sum(PROPDMG, na.rm = TRUE),
+            TOT_CROPDMG = sum(CROPDMG, na.rm = TRUE),
+            AV_PROPDMG = mean(PROPDMG, na.rm = TRUE),
+            AV_CROPDMG = mean(CROPDMG, na.rm = TRUE))
+StormData_Grouped_By_EVTYPE[,-c(8:11)]
+StormData_Grouped_By_EVTYPE[,-c(2:7)]
 ```
 
 
