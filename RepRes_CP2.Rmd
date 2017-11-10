@@ -161,6 +161,22 @@ There are some event types set in lower case. Let's fix that, so that we can gro
 StormData$EVTYPE <- toupper(StormData$EVTYPE)
 ```
 
+Now group the data by `EVTYPE` and calculate:
+
+- number of events per group
+- total fatalities and injuries for each group
+- average fatalities and injuries per group (per event)
+
+```{r group_by_EVTYPEs, message=FALSE, warning=FALSE, cache=TRUE}
+StormData_Grouped_By_EVTYPE <- StormData %>%
+  group_by(EVTYPE) %>%
+  summarise(CNT = n(), PCT = round(CNT/nrow(StormData)*100, 1),
+            TOT_FAT = sum(FATALITIES), TOT_INJ = sum(INJURIES),
+            AV_FAT = round(mean(FATALITIES),3), AV_INJ = round(mean(INJURIES), 3)) %>%
+  arrange(desc(TOT_FAT), desc(TOT_INJ))
+StormData_Grouped_By_EVTYPE
+```
+
 
 
 ## Results
