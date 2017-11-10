@@ -307,3 +307,19 @@ plot(x = SD_CLEAN_by_group_totals$fat_total,
 # ADD COLUMS FOR CALCULATED PROPERTY AND CROP DAMAGE...
 SD_CLEAN_CALC <- SD_CLEAN %>%
   mutate(CALC_PROPDMG = 0, CALC_CROPDMG = 0)
+# Fill the variables with the right number (conditionally adding
+# calculated values (vectorized!)):
+SD_CLEAN_CALC$CALC_PROPDMG <- ifelse(SD_CLEAN_CALC$PROPDMGEXP %in% c("K", "k"),
+              SD_CLEAN_CALC$PROPDMG * 1000,
+                    ifelse(SD_CLEAN_CALC$PROPDMGEXP %in% c("M", "m"),
+              SD_CLEAN_CALC$PROPDMG * 1000000,
+                    ifelse(SD_CLEAN_CALC$PROPDMGEXP %in% c("B", "b"),
+              SD_CLEAN_CALC$PROPDMG * 1000000000, NA)))
+
+SD_CLEAN_CALC$CALC_CROPDMG <- ifelse(SD_CLEAN_CALC$CROPDMGEXP %in% c("K", "k"),
+              SD_CLEAN_CALC$CROPDMG * 1000,
+                    ifelse(SD_CLEAN_CALC$CROPDMGEXP %in% c("M", "m"),
+              SD_CLEAN_CALC$CROPDMG * 1000000,
+                    ifelse(SD_CLEAN_CALC$CROPDMGEXP %in% c("B", "b"),
+              SD_CLEAN_CALC$CROPDMG * 1000000000, NA)))
+
