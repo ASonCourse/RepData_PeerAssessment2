@@ -196,10 +196,10 @@ StormData_Grouped_By_EVTYPE <- StormData %>%
   summarise(CNT = n(), PCT = round(CNT/nrow(StormData)*100, 1),
             TOT_FAT = sum(FATALITIES), TOT_INJ = sum(INJURIES),
             AV_FAT = round(mean(FATALITIES),3), AV_INJ = round(mean(INJURIES), 3),
-            TOT_PROPDMG = sum(PROPDMG, na.rm = TRUE),
-            TOT_CROPDMG = sum(CROPDMG, na.rm = TRUE),
-            AV_PROPDMG = mean(PROPDMG, na.rm = TRUE),
-            AV_CROPDMG = mean(CROPDMG, na.rm = TRUE))
+            TOT_PROPDMG = round(sum(PROPDMG, na.rm = TRUE)/1000000, 0),
+            TOT_CROPDMG = round(sum(CROPDMG, na.rm = TRUE)/1000000, 0),
+            AV_PROPDMG = round(mean(PROPDMG, na.rm = TRUE)/1000000, 3),
+            AV_CROPDMG = round(mean(CROPDMG, na.rm = TRUE)/1000000, 3))
 StormData_Grouped_By_EVTYPE[,-c(8:11)]
 StormData_Grouped_By_EVTYPE[,-c(2:7)]
 ```
