@@ -323,3 +323,9 @@ SD_CLEAN_CALC$CALC_CROPDMG <- ifelse(SD_CLEAN_CALC$CROPDMGEXP %in% c("K", "k"),
                     ifelse(SD_CLEAN_CALC$CROPDMGEXP %in% c("B", "b"),
               SD_CLEAN_CALC$CROPDMG * 1000000000, NA)))
 
+# Grouping and sumarizing, by total property and crop damage:
+SD_CLEAN_CALC_by_group_totals <- SD_CLEAN_CALC %>%
+  group_by(EVTYPE) %>%
+  summarise(prop_dmg_total = sum(CALC_PROPDMG), crop_dmg_total = sum(CALC_CROPDMG))
+
+#
