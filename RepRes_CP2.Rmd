@@ -15,13 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-## Questions
-
-1. Does the analysis address the question of which types of events are most harmful to population health?
-2. Does the analysis address the question of which types of events have the greatest economic consequences?
-
-
-## Importing Data
+## Data Processing
 
 Does the analysis start from the raw data file (i.e. the original .csv.bz2 file)?
 
