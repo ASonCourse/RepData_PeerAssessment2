@@ -86,6 +86,14 @@ So we've reduced the number of variables / columns to `r length(names(StormData)
 StormData[sample(nrow(StormData), 8),]
 ```
 
+Let's look at the variable `EVTYPE`. On page 6 of the Storm Data Documentation we find the Storm Data Event Table with all the possible event types. In total there are 48 possible entries. However, if we calculate the number of unique event types present in our dataset we get `r length(unique(StormData$EVTYPE))` of them. That is way more than we would expect. So what's going on here? let's sample some of the data:
+
+```{r sample_unique_EVTYPEs, message=FALSE, warning=FALSE, cache=TRUE}
+unique(StormData$EVTYPE)[sample(length(unique(StormData$EVTYPE)), 9)]
+```
+
+There appears to be some [cruft](https://www.urbandictionary.com/define.php?term=cruft) — data values that have not been selected from the Storm Data Event Table. The majority of the `EVTYPE` values entered have been typed in UPPER CASE, so this should be considered the prescribed way of entering data. Most entries conform, but a number of them are (partly) in lower case.
+
 
 ## Results
 
