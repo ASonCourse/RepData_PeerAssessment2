@@ -1,5 +1,5 @@
 ---
-title: "Reproducible Research Course Project 2"
+title: "Tornadoes threathen health, floods destroy property."
 author: "Sander Schrieken"
 date: "10/30/2017"
 output: html_document
