@@ -224,6 +224,9 @@ scale_y_continuous(labels=comma)
 
 Found the solution / recipe here: https://stackoverflow.com/questions/30949896/creating-stacked-barplots-in-r-using-different-variables
 
+Figure Captions?
+
+{r cars, fig.cap = "This caption is hard coded. Note no number is added."}
 
 ## Results
 
