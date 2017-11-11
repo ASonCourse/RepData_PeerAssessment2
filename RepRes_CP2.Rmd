@@ -208,7 +208,8 @@ StormData_Stacked_Barplot <- StormData_Grouped_By_EVTYPE[, c("EVTYPE", "TOT_PROP
 
 StormData_Stacked_Barplot <- melt(StormData_Stacked_Barplot, id = "EVTYPE")
 
-ggplot(StormData_Stacked_Barplot, aes(x = EVTYPE, y = value, fill = variable)) + geom_bar(stat = "identity")
+ggplot(StormData_Stacked_Barplot, aes(x = EVTYPE, y = value, fill = variable)) + geom_bar(stat = "identity") +
+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
 
 Found the solution / recipe here: https://stackoverflow.com/questions/30949896/creating-stacked-barplots-in-r-using-different-variables
 
