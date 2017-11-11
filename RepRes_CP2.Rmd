@@ -204,6 +204,13 @@ StormData_Grouped_By_EVTYPE[,-c(8:11)]
 StormData_Grouped_By_EVTYPE[,-c(2:7)]
 ```
 
+StormData_Stacked_Barplot <- StormData_Grouped_By_EVTYPE[, c("EVTYPE", "TOT_PROPDMG", "TOT_CROPDMG")]
+
+StormData_Stacked_Barplot <- melt(StormData_Stacked_Barplot, id = "EVTYPE")
+
+ggplot(StormData_Stacked_Barplot, aes(x = EVTYPE, y = value, fill = variable)) + geom_bar(stat = "identity")
+
+Found the solution / recipe here: https://stackoverflow.com/questions/30949896/creating-stacked-barplots-in-r-using-different-variables
 
 
 ## Results
