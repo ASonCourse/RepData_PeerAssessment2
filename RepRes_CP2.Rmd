@@ -268,7 +268,7 @@ if (!require(scales)) install.packages("scales")
 library(scales)
 ```
 
-```{r stacked_barplot_fatalities&injuries, message=FALSE, warning=FALSE, cache=TRUE}
+```{r stacked_barplot_fatalities&injuries, fig.cap = "Barplot showing total fatalities plus injuries for each even type.", message=FALSE, warning=FALSE, cache=TRUE}
 # Source of this method:
 # https://stackoverflow.com/questions/30949896/creating-stacked-barplots-in-r-using-different-variables
 
