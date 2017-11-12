@@ -203,6 +203,16 @@ StormData_SUMMARY[, 1:5]
 StormData_SUMMARY[, c(1:3, 6:7)]
 ```
 
+Please note that the colums `PROPDMG_PCT` and `CROPDMG_PCT` display the relative share of the total property / crop damage. Absolute figures are extremely large (milions of bilions) and go beyond comprehension. The percentage of the total damage does convey meaning, however.
+
+## Results
+
+We can now arrange the `StormData_SUMMARY` so that becomes clear which even types cause the most fatalities, injuries, property and crop damage.
+
+```{r SUMMARY_by_COUNT, message=FALSE, warning=FALSE, cache=TRUE}
+StormData_COUNT <- arrange(StormData_SUMMARY, desc(COUNT))
+```
+
 StormData_Stacked_Barplot <- StormData_Grouped_By_EVTYPE[, c("EVTYPE", "TOT_PROPDMG", "TOT_CROPDMG")]
 
 StormData_Stacked_Barplot <- melt(StormData_Stacked_Barplot, id = "EVTYPE")
