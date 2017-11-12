@@ -191,17 +191,16 @@ Now group the data by `EVTYPE` and calculate:
 - average property and crop damage per group (per event)
 
 ```{r group_by_EVTYPEs, message=FALSE, warning=FALSE, cache=TRUE}
-StormData_Grouped_By_EVTYPE <- StormData %>%
+StormData_SUMMARY <- StormData %>%
   group_by(EVTYPE) %>%
-  summarise(CNT = n(), PCT = round(CNT/nrow(StormData)*100, 1),
-            TOT_FAT = sum(FATALITIES), TOT_INJ = sum(INJURIES),
-            AV_FAT = round(mean(FATALITIES),3), AV_INJ = round(mean(INJURIES), 3),
-            TOT_PROPDMG = round(sum(PROPDMG, na.rm = TRUE)/1000000, 0),
-            TOT_CROPDMG = round(sum(CROPDMG, na.rm = TRUE)/1000000, 0),
-            AV_PROPDMG = round(mean(PROPDMG, na.rm = TRUE)/1000000, 3),
-            AV_CROPDMG = round(mean(CROPDMG, na.rm = TRUE)/1000000, 3))
-StormData_Grouped_By_EVTYPE[,-c(8:11)]
-StormData_Grouped_By_EVTYPE[,-c(2:7)]
+  summarise(COUNT = n(), PCT = round(COUNT/nrow(StormData)*100, 1),
+            TOTAL_FAT = sum(FATALITIES), TOTAL_INJ = sum(INJURIES),
+            PROPDMG_PCT = round(sum(PROPDMG, na.rm = TRUE) /
+                  sum(StormData$PROPDMG, na.rm = TRUE) * 100, 0),
+            CROPDMG_PCT = round(sum(CROPDMG, na.rm = TRUE) /
+                  sum(StormData$CROPDMG, na.rm = TRUE) * 100, 0))
+StormData_SUMMARY[, 1:5]
+StormData_SUMMARY[, c(1:3, 6:7)]
 ```
 
 StormData_Stacked_Barplot <- StormData_Grouped_By_EVTYPE[, c("EVTYPE", "TOT_PROPDMG", "TOT_CROPDMG")]
