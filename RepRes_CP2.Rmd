@@ -246,7 +246,7 @@ The event type that results in the highest number of total fatalities is **`r St
 
 ##### Injuries:
 
-**`r StormData_INJURIES[1,"EVTYPE"]`** also cause the highest number of total injuries, with `r tolower(StormData_INJURIES[2:5,"EVTYPE"])` making up the rest of the top 5. The number of injuries caused by the 'top' event is more than 13 times as big as that of the runner up.
+**`r StormData_INJURIES[1,"EVTYPE"]`** events also cause the highest number of total injuries, with `r tolower(StormData_INJURIES[2:5,"EVTYPE"])` making up the rest of the top 5. The number of injuries caused by the 'top' event is more than 13 times as big as that of the runner up.
 
 When we create a stacked barplot of the number of fatalities and injuries for each event type it's immediately clear that **tornadoes** are most harmful to population health:
 
@@ -268,7 +268,7 @@ if (!require(scales)) install.packages("scales")
 library(scales)
 ```
 
-```{r stacked_barplot_fatalities&injuries, fig.cap = "Barplot showing total fatalities plus injuries for each even type.", message=FALSE, warning=FALSE, cache=TRUE}
+```{r stacked_barplot_fatalities&injuries, fig.cap = "            Barplot showing total fatalities plus injuries for each event type.", fig.width = 10, message=FALSE, warning=FALSE, cache=TRUE}
 # Source of this method:
 # https://stackoverflow.com/questions/30949896/creating-stacked-barplots-in-r-using-different-variables
 
@@ -285,13 +285,16 @@ ggplot(Data_Stacked_Barplot_FatInj,
                                  vjust=0.5,
                                  size=8,
                                  face="bold"),
-  panel.grid.major.x = element_blank()) +
-  scale_y_continuous(labels=comma)
+        axis.title.x=element_blank(),
+        legend.title=element_blank(),
+        panel.grid.major.x = element_blank()) +
+  scale_y_continuous(labels=comma) +
+  labs(y = "Fatalities plus injuries (totals)")
 ```
 
 Since tornadoes caused the most fatalities and the most injuries this type of event must be considered most harmful to population health. If the barplot wasn't clear enough, the figure below shows how much bigger the impact of tornadoes is when compared to other event types. We're plotting total injuries versus total fatalities:
 
-```{r dotplot_fatalities&injuries, fig.cap = "Dotplot showing total injuries versus total fatalities; each dot represents an even type.", message=FALSE, warning=FALSE, cache=TRUE}
+```{r dotplot_fatalities&injuries, fig.cap = "          Dotplot showing total injuries versus total fatalities; each dot represents an event type.", fig.width = 9, message=FALSE, warning=FALSE, cache=TRUE}
 plot(x = StormData_SUMMARY$TOTAL_INJ, y = StormData_SUMMARY$TOTAL_FAT,
           pch = 20, cex = 0.5,
           xlab = "Injuries",
@@ -307,12 +310,11 @@ points(x = max(StormData_SUMMARY$TOTAL_INJ), y = max(StormData_SUMMARY$TOTAL_FAT
         labels = "OTHER EVENT TYPES", cex = 0.8, col = NULL)
 ```
 
-
 ##### Property Damage:
 
 The event type causing the most damage to property can be identified as: **`r StormData_PROPDMG[1,"EVTYPE"]`**. `r StormData_PROPDMG[2,"EVTYPE"]` is the runner up, but this event caused less than half the damage. Together the top 2 accounts for almost three quarters of all damage.
 
-#### Crop Damage:
+##### Crop Damage:
 
 In relative terms the biggest amount of crop damage was caused by **`r StormData_CROPDMG[1,"EVTYPE"]`**. The top 5 was completed by `r StormData_CROPDMG[2:5,"EVTYPE"]`.
 
@@ -327,7 +329,7 @@ With FLOOD topping the list as cause of property damage and second where it come
 
 TORNADOES, which already have been identified as the event type with the most profound consequences on public health ranks second when it comes to economic repercussions. The plot below illustrates this aswell.
 
-```{r stacked_barplot_property&crop_damage, fig.cap = "Barplot showing crop damages plus property damages for each even type.", message=FALSE, warning=FALSE, cache=TRUE}
+```{r stacked_barplot_property&crop_damage, fig.cap = "         Barplot showing crop damages plus property damages for each event type.", fig.width = 10, message=FALSE, warning=FALSE, cache=TRUE}
 # Source of this method:
 # https://stackoverflow.com/questions/30949896/creating-stacked-barplots-in-r-using-different-variables
 
@@ -350,42 +352,13 @@ ggplot(Data_Stacked_Barplot_PropCrop,
                                  vjust=0.5,
                                  size=8,
                                  face="bold"),
+  axis.title.x=element_blank(),
+  legend.title=element_blank(),
   panel.grid.major.x = element_blank()) +
-  scale_y_continuous(labels=comma)
+  scale_y_continuous(labels=comma) +
+  labs(y = "Share of total damage (%)")
 ```
 
+## Conclusion
 
-
-
-## Results
-
-
-Preliminary thoughts on the matter:
-
-Which types of events are most harmful to population health???
-
-There seem to be two variables that affect population health: FATALITIES and INJURIES. Possibly events with many fatalities will also show a lot of injuries, but we don't know. Something to find oud. There could be a difference in the top 10 events causing fatalities and injuries. Is an event with many injuries more harmful to population health than an event without injuries where one person died? That's a difficult question to answer, so it's probably best analyse fatalities and injuries together. It would be nice if there was a strong correlation. When there are obvious differences, we should point them out.
-
-Drawing a plot wit injuries (x) and fatalities (y) shows a picture that apparently lacks significant correlation. The other way around (fatalies on X, and injuries on Y) doesn't change that. So there's hardly any meaningful correlation between number of injuries and number of fatalities. The 1995 heatwave resulted in almost 600 deaths, but very few injuries by comparison. On the other hand the 1979 Tornado (Whichita, TX) caused 1700 injuries and 'only' 42 fatalities.
-
-Looking at the totals TORNADO events top the list in both fatalities and injuries. When looking at average number of injuries / fatalities per type of event TORNADO's score higher aswel (more fatalities). Heat-related events cause a higer number of injuries on average, but they occur way less often. Because TORNADO's are very common they have the most impact on the health of the population. See [DO].R and EDA.R for analyses and calculations.
-
-
-
-## Review Criteria
-
-1. Has either a (1) valid RPubs URL pointing to a data analysis document for this assignment been submitted; or (2) a complete PDF file presenting the data analysis been uploaded?
-2. Is the document written in English?
-3. Does the analysis include description and justification for any data transformations?
-4. Does the document have a title that briefly summarizes the data analysis?
-5. Does the document have a synopsis that describes and summarizes the data analysis in less than 10 sentences?
-6. Is there a section titled "Data Processing" that describes how the data were loaded into R and processed for analysis?
-7. Is there a section titled "Results" where the main results are presented?
-8. Is there at least one figure in the document that contains a plot?
-9. Are there at most 3 figures in this document?
-10. Does the analysis start from the raw data file (i.e. the original .csv.bz2 file)?
-11. Does the analysis address the question of which types of events are most harmful to population health?
-12. Does the analysis address the question of which types of events have the greatest economic consequences?
-13. Do all the results of the analysis (i.e. figures, tables, numerical summaries) appear to be reproducible?
-14. Do the figure(s) have descriptive captions (i.e. there is a description near the figure of what is happening in the figure)?
-15. As far as you can determine, does it appear that the work submitted for this project is the work of the student who submitted it?
+Tornadoes are most harmful to population health. Floods have the greatest economic consequences, although tornadoes cause significant of property damage too. 
