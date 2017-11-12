@@ -229,25 +229,69 @@ StormData_PROPDMG <- arrange(StormData_SUMMARY, desc(PROPDMG_PCT))
 StormData_CROPDMG <- arrange(StormData_SUMMARY, desc(CROPDMG_PCT))
 ```
 
-***
-##### Frequency
+```{r print_MOST_FREQUENT_EVENTS, message=FALSE, warning=FALSE, cache=TRUE}
+StormData_COUNT[1:10, -3]
+```
+
+
+##### Frequency:
 
 Using the ordered lists we can deduce that **`r StormData_COUNT[1,"EVTYPE"]`** is the event type that occurs most often. The top 5 looks like this: `r StormData_COUNT[1:5,"EVTYPE"]`.
 
-***
+
 ##### Fatalities:
 
 The event type that results in the highest number of total fatalities is **`r StormData_FATALITIES[1,"EVTYPE"]`**; `r tolower(StormData_FATALITIES[2:5,"EVTYPE"])` make up the rest of the top 5. It should be noted that the number of fatalities caused by the 'top' event is almost 3 times that caused by the runner up.
 
-***
+
 ##### Injuries:
 
 **`r StormData_INJURIES[1,"EVTYPE"]`** also cause the highest number of total injuries, with `r tolower(StormData_INJURIES[2:5,"EVTYPE"])` making up the rest of the top 5. The number of injuries caused by the 'top' event is more than 13 times as big as that of the runner up.
 
-***
+When we create a stacked barplot of the number of fatalities and injuries for each event type it's immediately clear that **tornadoes** are most harmful to population health:
+
+```{r install_ggplot2, message=FALSE, warning=FALSE}
+options(repos = "https://cran.rstudio.com")
+if (!require(ggplot2)) install.packages("ggplot2")
+library(ggplot2)
+```
+
+```{r install_reshape2, message=FALSE, warning=FALSE}
+options(repos = "https://cran.rstudio.com")
+if (!require(reshape2)) install.packages("reshape2")
+library(reshape2)
+```
+
+```{r install_scales, message=FALSE, warning=FALSE}
+options(repos = "https://cran.rstudio.com")
+if (!require(scales)) install.packages("scales")
+library(scales)
+```
+
+```{r stacked_barplot_fatalities&injuries, message=FALSE, warning=FALSE, cache=TRUE}
+# Source of this method:
+# https://stackoverflow.com/questions/30949896/creating-stacked-barplots-in-r-using-different-variables
+
+# First prepare a long form object that can be used by ggplot:
+Data_Stacked_Barplot_FatInj <- StormData_SUMMARY[, c("EVTYPE", "TOTAL_FAT", "TOTAL_INJ")]
+Data_Stacked_Barplot_FatInj <- melt(Data_Stacked_Barplot_FatInj, id = "EVTYPE")
+
+# Now use ggplot to create the desired plot:
+ggplot(Data_Stacked_Barplot_FatInj, 
+       aes(x = EVTYPE, y = value, fill = variable)) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x=element_text(angle=90,
+                                 hjust=1,
+                                 vjust=0.5,
+                                 size=8,
+                                 face="bold"),
+  panel.grid.major.x = element_blank()) +
+  scale_y_continuous(labels=comma)
+```
+
 ##### Property Damage:
 
-***
+
 #### Crop Damage:
 
 
@@ -270,7 +314,7 @@ theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5,size=8,face="bold"),
   panel.grid.major.x = element_blank()) +
 scale_y_continuous(labels=comma)
 
-Found the solution / recipe here: https://stackoverflow.com/questions/30949896/creating-stacked-barplots-in-r-using-different-variables
+
 
 Figure Captions?
 
@@ -278,11 +322,6 @@ Figure Captions?
 
 ## Results
 
-```{r install_ggplot2, message=FALSE, warning=FALSE}
-options(repos = "https://cran.rstudio.com")
-if (!require(ggplot2)) install.packages("ggplot2")
-library(ggplot2)
-```
 
 Preliminary thoughts on the matter:
 
