@@ -310,35 +310,52 @@ points(x = max(StormData_SUMMARY$TOTAL_INJ), y = max(StormData_SUMMARY$TOTAL_FAT
 
 ##### Property Damage:
 
-The 
+The event type causing the most damage to property can be identified as: **`r StormData_PROPDMG[1,"EVTYPE"]`**. `r StormData_PROPDMG[2,"EVTYPE"]` is the runner up, but this event caused less than half the damage. Together the top 2 accounts for almost three quarters of all damage.
 
 #### Crop Damage:
 
+In relative terms the biggest amount of crop damage was caused by **`r StormData_CROPDMG[1,"EVTYPE"]`**. The top 5 was completed by `r StormData_CROPDMG[2:5,"EVTYPE"]`.
 
+```{r calculate_damage_weight_factor, message=FALSE, warning=FALSE, cache=TRUE}
+PropDMG_Weight <- sum(StormData$PROPDMG, na.rm = TRUE) / (sum(StormData$PROPDMG, na.rm = TRUE) + sum(StormData$CROPDMG, na.rm = TRUE))
+CropDMG_Weight <- sum(StormData$CROPDMG, na.rm = TRUE) / (sum(StormData$PROPDMG, na.rm = TRUE) + sum(StormData$CROPDMG, na.rm = TRUE))
+```
 
-StormData_Stacked_Barplot <- StormData_Grouped_By_EVTYPE[, c("EVTYPE", "TOT_PROPDMG", "TOT_CROPDMG")]
+The economic consequences can be measured by adding the amount of property damage to the amount of crop damage. Since we've been working with percentages of the total amounts of damage for each catagory, we must introduce a weight factor (ratio) now. Property damage is way bigger than crop damage (about `r round(PropDMG_Weight/CropDMG_Weight, 0)` times, actually.) So, we multiply the property damage percentages by `r PropDMG_Weight` and the crop damage percentages by `r CropDMG_Weight`.
 
-StormData_Stacked_Barplot <- melt(StormData_Stacked_Barplot, id = "EVTYPE")
+With FLOOD topping the list as cause of property damage and second where it comes to causing crop damage this type of event seems to have the biggest economic impact. The stacked barplot below confirms this is the case.
 
-ggplot(StormData_Stacked_Barplot, aes(x = EVTYPE, y = value, fill = variable)) + geom_bar(stat = "identity") +
-theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5,size=8,face="bold"),
+TORNADOES, which already have been identified as the event type with the most profound consequences on public health ranks second when it comes to economic repercussions. The plot below illustrates this aswell.
+
+```{r stacked_barplot_property&crop_damage, fig.cap = "Barplot showing crop damages plus property damages for each even type.", message=FALSE, warning=FALSE, cache=TRUE}
+# Source of this method:
+# https://stackoverflow.com/questions/30949896/creating-stacked-barplots-in-r-using-different-variables
+
+# First prepare a long form object that can be used by ggplot:
+Data_Stacked_Barplot_PropCrop <- StormData_SUMMARY[, c("EVTYPE", "PROPDMG_PCT", "CROPDMG_PCT")]
+
+Data_Stacked_Barplot_PropCrop$PROPDMG_PCT <-
+  (Data_Stacked_Barplot_PropCrop$PROPDMG_PCT * PropDMG_Weight)
+Data_Stacked_Barplot_PropCrop$CROPDMG_PCT <-
+  (Data_Stacked_Barplot_PropCrop$CROPDMG_PCT * CropDMG_Weight)
+
+Data_Stacked_Barplot_PropCrop <- melt(Data_Stacked_Barplot_PropCrop, id = "EVTYPE")
+
+# Now use ggplot to create the desired plot:
+ggplot(Data_Stacked_Barplot_PropCrop, 
+       aes(x = EVTYPE, y = value, fill = variable)) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x=element_text(angle=90,
+                                 hjust=1,
+                                 vjust=0.5,
+                                 size=8,
+                                 face="bold"),
   panel.grid.major.x = element_blank()) +
-scale_y_continuous(labels=comma)
-
-StormData_Stacked_Barplot_2 <- StormData_Grouped_By_EVTYPE[, c("EVTYPE", "TOT_FAT", "TOT_INJ")]
-
-StormData_Stacked_Barplot_2 <- melt(StormData_Stacked_Barplot_2, id = "EVTYPE")
-
-ggplot(StormData_Stacked_Barplot_2, aes(x = EVTYPE, y = value, fill = variable)) + geom_bar(stat = "identity") +
-theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5,size=8,face="bold"),
-  panel.grid.major.x = element_blank()) +
-scale_y_continuous(labels=comma)
+  scale_y_continuous(labels=comma)
+```
 
 
 
-Figure Captions?
-
-{r cars, fig.cap = "This caption is hard coded. Note no number is added."}
 
 ## Results
 
