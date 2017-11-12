@@ -214,18 +214,20 @@ StormData_COUNT <- arrange(StormData_SUMMARY, desc(COUNT))
 ```
 
 ```{r SUMMARY_by_FATALITIES, message=FALSE, warning=FALSE, cache=TRUE}
-StormData_FATALITIES <- arrange(StormData_SUMMARY, desc(TOT_FAT))
+StormData_FATALITIES <- arrange(StormData_SUMMARY, desc(TOTAL_FAT))
 ```
 
 ```{r SUMMARY_by_INJURIES, message=FALSE, warning=FALSE, cache=TRUE}
-StormData_INJURIES <- arrange(StormData_SUMMARY, desc(TOT_INJ))
+StormData_INJURIES <- arrange(StormData_SUMMARY, desc(TOTAL_INJ))
 ```
 
 ```{r SUMMARY_by_PROPDMG, message=FALSE, warning=FALSE, cache=TRUE}
 StormData_PROPDMG <- arrange(StormData_SUMMARY, desc(PROPDMG_PCT))
 ```
 
-
+```{r SUMMARY_by_CROPDMG, message=FALSE, warning=FALSE, cache=TRUE}
+StormData_CROPDMG <- arrange(StormData_SUMMARY, desc(CROPDMG_PCT))
+```
 
 StormData_Stacked_Barplot <- StormData_Grouped_By_EVTYPE[, c("EVTYPE", "TOT_PROPDMG", "TOT_CROPDMG")]
 
