@@ -289,8 +289,28 @@ ggplot(Data_Stacked_Barplot_FatInj,
   scale_y_continuous(labels=comma)
 ```
 
+Since tornadoes caused the most fatalities and the most injuries this type of event must be considered most harmful to population health. If the barplot wasn't clear enough, the figure below shows how much bigger the impact of tornadoes is when compared to other event types. We're plotting total injuries versus total fatalities:
+
+```{r dotplot_fatalities&injuries, fig.cap = "Dotplot showing total injuries versus total fatalities; each dot represents an even type.", message=FALSE, warning=FALSE, cache=TRUE}
+plot(x = StormData_SUMMARY$TOTAL_INJ, y = StormData_SUMMARY$TOTAL_FAT,
+          pch = 20, cex = 0.5,
+          xlab = "Injuries",
+          ylab = "Fatalities")
+# Marking the outlier (max fatalities and max injuries; TORNADO EVTYPE):
+points(x = max(StormData_SUMMARY$TOTAL_INJ), y = max(StormData_SUMMARY$TOTAL_FAT),
+           pch = 19, col = "red")
+# Adding text to outlier:
+ text(x = max(StormData_SUMMARY$TOTAL_INJ), y = max(StormData_SUMMARY$TOTAL_FAT) - 300,
+        labels = "TORNADO", pos = 2, cex = 0.8, col = NULL)
+ # Adding text to the rest:
+ text(x = 20000, y = 1300,
+        labels = "OTHER EVENT TYPES", cex = 0.8, col = NULL)
+```
+
+
 ##### Property Damage:
 
+The 
 
 #### Crop Damage:
 
