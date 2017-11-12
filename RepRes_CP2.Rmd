@@ -229,6 +229,29 @@ StormData_PROPDMG <- arrange(StormData_SUMMARY, desc(PROPDMG_PCT))
 StormData_CROPDMG <- arrange(StormData_SUMMARY, desc(CROPDMG_PCT))
 ```
 
+***
+##### Frequency
+
+Using the ordered lists we can deduce that **`r StormData_COUNT[1,"EVTYPE"]`** is the event type that occurs most often. The top 5 looks like this: `r StormData_COUNT[1:5,"EVTYPE"]`.
+
+***
+##### Fatalities:
+
+The event type that results in the highest number of total fatalities is **`r StormData_FATALITIES[1,"EVTYPE"]`**; `r tolower(StormData_FATALITIES[2:5,"EVTYPE"])` make up the rest of the top 5. It should be noted that the number of fatalities caused by the 'top' event is almost 3 times that caused by the runner up.
+
+***
+##### Injuries:
+
+**`r StormData_INJURIES[1,"EVTYPE"]`** also cause the highest number of total injuries, with `r tolower(StormData_INJURIES[2:5,"EVTYPE"])` making up the rest of the top 5. The number of injuries caused by the 'top' event is more than 13 times as big as that of the runner up.
+
+***
+##### Property Damage:
+
+***
+#### Crop Damage:
+
+
+
 StormData_Stacked_Barplot <- StormData_Grouped_By_EVTYPE[, c("EVTYPE", "TOT_PROPDMG", "TOT_CROPDMG")]
 
 StormData_Stacked_Barplot <- melt(StormData_Stacked_Barplot, id = "EVTYPE")
