@@ -1,4 +1,3 @@
-
 .DS_Store
 .Rproj.user
 .Rhistory
@@ -11,3 +10,6 @@ repdata-peer2_doc-pd01016005curr.pdf
 repdata-peer2_doc-NCDC Storm Events-FAQ Page.pdf
 RepRes_CP2.html
 RepRes_CP2_cache/*
+Graded Projects/*
+RepRes_CP2_files/*
+rsconnect/*
