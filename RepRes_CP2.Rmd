@@ -185,9 +185,7 @@ Now group the data by `EVTYPE` and calculate:
 
 - number of events per group
 - total fatalities and injuries for each group
-- average fatalities and injuries per group (per event)
 - total property and crop damage for each group
-- average property and crop damage per group (per event)
 
 ```{r group_by_EVTYPEs, message=FALSE, warning=FALSE, cache=TRUE}
 StormData_SUMMARY <- StormData %>%
