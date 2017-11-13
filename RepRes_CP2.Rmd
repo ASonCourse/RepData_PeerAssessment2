@@ -206,7 +206,7 @@ Please note that the colums `PROPDMG_PCT` and `CROPDMG_PCT` display the relative
 
 ## Results
 
-We can now arrange the `StormData_SUMMARY` so that becomes clear which even types cause the most fatalities, injuries, property and crop damage. But first let's order the list by number / percentage of occurences.
+We can now arrange the `StormData_SUMMARY` so that becomes clear which event types cause the most fatalities, injuries, property and crop damage. But first let's order the list by number / percentage of occurences.
 
 ```{r SUMMARY_by_COUNT, message=FALSE, warning=FALSE, cache=TRUE}
 StormData_COUNT <- arrange(StormData_SUMMARY, desc(COUNT))
