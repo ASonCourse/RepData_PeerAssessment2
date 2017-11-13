@@ -82,7 +82,7 @@ StormData <- StormData %>%
 So we've reduced the number of variables / columns to `r length(names(StormData))`. Let's sample some of it to see what's in there:
 
 ```{r sample_StormData, message=FALSE, warning=FALSE, cache=TRUE}
-StormData[sample(nrow(StormData), 8),]
+knitr::kable(StormData[sample(nrow(StormData), 8),])
 ```
 
 Let's look at the variable `EVTYPE`. On page 6 of the Storm Data Documentation we find the Storm Data Event Table with all the possible event types. In total there are 48 possible entries. However, if we calculate the number of unique event types present in our dataset we get `r length(unique(StormData$EVTYPE))` of them. That is way more than we would expect. So what's going on here? let's sample some of the data:
