@@ -198,8 +198,8 @@ StormData_SUMMARY <- StormData %>%
                   sum(StormData$PROPDMG, na.rm = TRUE) * 100, 0),
             CROPDMG_PCT = round(sum(CROPDMG, na.rm = TRUE) /
                   sum(StormData$CROPDMG, na.rm = TRUE) * 100, 0))
-StormData_SUMMARY[, 1:5]
-StormData_SUMMARY[, c(1:3, 6:7)]
+knitr::kable(StormData_SUMMARY[1:5, 1:5])
+knitr::kable(StormData_SUMMARY[1:5, c(1:3, 6:7)])
 ```
 
 Please note that the colums `PROPDMG_PCT` and `CROPDMG_PCT` display the relative share of the total property / crop damage. Absolute figures are extremely large (milions of bilions) and go beyond comprehension. The percentage of the total damage does convey meaning, however.
@@ -234,7 +234,7 @@ StormData_COUNT[1:10, -3]
 
 ##### Frequency:
 
-Using the ordered lists we can deduce that **`r StormData_COUNT[1,"EVTYPE"]`** is the event type that occurs most often. The top 5 looks like this: `r StormData_COUNT[1:5,"EVTYPE"]`.
+Using the ordered lists we can deduce that **`r StormData_COUNT[1,"EVTYPE"]`** is the event type that occurs most often. The top 5 looks like this: `r tolower(StormData_COUNT[1:5,"EVTYPE"])`.
 
 
 ##### Fatalities:
