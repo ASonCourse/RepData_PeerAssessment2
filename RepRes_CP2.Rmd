@@ -1,7 +1,7 @@
 ---
 title: "Tornadoes threathen health, floods destroy property."
-author: "Sander Schrieken"
-date: "10/30/2017"
+author: "ASonCourse"
+date: "11/13/2017"
 output: html_document
 ---
 
@@ -64,8 +64,6 @@ Note that `fread()` can not handle the unzipping for us. We will have to use the
 ```{r importing_StormData_fread, message=FALSE, warning=FALSE, cache=TRUE}
 StormData <- fread('bunzip2 -ck StormData.csv.bz2')
 ```
-
-[next: analysing the dataset, pointing out issues (dmg exponents, number of event types)]
 
 StormData contains `r length(names(StormData))` variables and `r nrow(StormData)` observations. Using `dplyr`, we will reduce the number of variables by removing the irrelevant colums:
 
@@ -233,7 +231,6 @@ StormData_CROPDMG <- arrange(StormData_SUMMARY, desc(CROPDMG_PCT))
 StormData_COUNT[1:10, -3]
 ```
 
-
 ##### Frequency:
 
 Using the ordered lists we can deduce that **`r StormData_COUNT[1,"EVTYPE"]`** is the event type that occurs most often. The top 5 looks like this: `r StormData_COUNT[1:5,"EVTYPE"]`.
@@ -268,7 +265,7 @@ if (!require(scales)) install.packages("scales")
 library(scales)
 ```
 
-```{r stacked_barplot_fatalities&injuries, fig.cap = "            Barplot showing total fatalities plus injuries for each event type.", fig.width = 10, message=FALSE, warning=FALSE, cache=TRUE}
+```{r stacked_barplot_fatalities&injuries, fig.cap = "CAPTION: Barplot showing total fatalities plus injuries for each event type.", fig.width = 10, message=FALSE, warning=FALSE, cache=TRUE}
 # Source of this method:
 # https://stackoverflow.com/questions/30949896/creating-stacked-barplots-in-r-using-different-variables
 
@@ -294,7 +291,7 @@ ggplot(Data_Stacked_Barplot_FatInj,
 
 Since tornadoes caused the most fatalities and the most injuries this type of event must be considered most harmful to population health. If the barplot wasn't clear enough, the figure below shows how much bigger the impact of tornadoes is when compared to other event types. We're plotting total injuries versus total fatalities:
 
-```{r dotplot_fatalities&injuries, fig.cap = "          Dotplot showing total injuries versus total fatalities; each dot represents an event type.", fig.width = 9, message=FALSE, warning=FALSE, cache=TRUE}
+```{r dotplot_fatalities&injuries, fig.cap = "CAPTION: Dotplot showing total injuries versus total fatalities; each dot represents an event type.", fig.width = 9, message=FALSE, warning=FALSE, cache=TRUE}
 plot(x = StormData_SUMMARY$TOTAL_INJ, y = StormData_SUMMARY$TOTAL_FAT,
           pch = 20, cex = 0.5,
           xlab = "Injuries",
@@ -310,13 +307,15 @@ points(x = max(StormData_SUMMARY$TOTAL_INJ), y = max(StormData_SUMMARY$TOTAL_FAT
         labels = "OTHER EVENT TYPES", cex = 0.8, col = NULL)
 ```
 
+
+
 ##### Property Damage:
 
 The event type causing the most damage to property can be identified as: **`r StormData_PROPDMG[1,"EVTYPE"]`**. `r StormData_PROPDMG[2,"EVTYPE"]` is the runner up, but this event caused less than half the damage. Together the top 2 accounts for almost three quarters of all damage.
 
 ##### Crop Damage:
 
-In relative terms the biggest amount of crop damage was caused by **`r StormData_CROPDMG[1,"EVTYPE"]`**. The top 5 was completed by `r StormData_CROPDMG[2:5,"EVTYPE"]`.
+In relative terms the biggest amount of crop damage was caused by **`r StormData_CROPDMG[1,"EVTYPE"]`**. The top 5 was completed by `r tolower(StormData_CROPDMG[2:5,"EVTYPE"])`.
 
 ```{r calculate_damage_weight_factor, message=FALSE, warning=FALSE, cache=TRUE}
 PropDMG_Weight <- sum(StormData$PROPDMG, na.rm = TRUE) / (sum(StormData$PROPDMG, na.rm = TRUE) + sum(StormData$CROPDMG, na.rm = TRUE))
@@ -329,7 +328,7 @@ With FLOOD topping the list as cause of property damage and second where it come
 
 TORNADOES, which already have been identified as the event type with the most profound consequences on public health ranks second when it comes to economic repercussions. The plot below illustrates this aswell.
 
-```{r stacked_barplot_property&crop_damage, fig.cap = "         Barplot showing crop damages plus property damages for each event type.", fig.width = 10, message=FALSE, warning=FALSE, cache=TRUE}
+```{r stacked_barplot_property&crop_damage, fig.cap = "CAPTION: Barplot showing crop damages plus property damages for each event type.", fig.width = 10, message=FALSE, warning=FALSE, cache=TRUE}
 # Source of this method:
 # https://stackoverflow.com/questions/30949896/creating-stacked-barplots-in-r-using-different-variables
 
