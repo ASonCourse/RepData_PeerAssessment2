@@ -3,7 +3,8 @@ title: "Tornadoes threathen health, floods destroy property."
 author: "ASonCourse"
 date: "11/13/2017"
 output:
-  tufte::tufte_html: default
+  tufte::tufte_html:
+    tufte_features: ["fonts", "italics"]
 ---
 
 ## Summary
