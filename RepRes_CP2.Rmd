@@ -359,4 +359,11 @@ ggplot(Data_Stacked_Barplot_PropCrop,
 
 ## Conclusion
 
-Tornadoes are most harmful to population health. Floods have the greatest economic consequences, although tornadoes cause significant property damage too. 
+Tornadoes are most harmful to population health. Floods have the greatest economic consequences, although tornadoes cause significant property damage too.
+
+
+## Software Environment
+
+```{r print_software_environment, message=FALSE, warning=FALSE, cache=TRUE}
+sessionInfo()
+```
