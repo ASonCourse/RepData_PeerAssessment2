@@ -1,7 +1,7 @@
 ---
 title: "Tornadoes threathen health, floods destroy property."
 author: "ASonCourse"
-date: "11/13/2017"
+date: "`r Sys.Date()`"
 output:
   tufte::tufte_html:
     tufte_features: ["fonts", "italics"]
