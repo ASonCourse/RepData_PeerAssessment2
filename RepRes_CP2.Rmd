@@ -392,7 +392,7 @@ Possible solututions?
 
 - Adjusting the Tufte style. Actually it seems like merging elements of the regular style with elements from tufte is what I want.
 
-See this [link] (https://rstudio.github.io/tufte/) for more info about tufte styled output.
+See this [link](https://rstudio.github.io/tufte/) for more info about tufte styled output. And [here](https://github.com/edwardtufte/tufte-css) for the original tufte css.
 
 ## Software Environment
 
