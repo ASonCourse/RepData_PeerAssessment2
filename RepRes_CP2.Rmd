@@ -362,6 +362,21 @@ ggplot(Data_Stacked_Barplot_PropCrop,
 
 Tornadoes are most harmful to population health. Floods have the greatest economic consequences, although tornadoes cause significant property damage too.
 
+## Comments on HTML-output
+
+- The title can not be split over two lines, which would have been desireable in this case (long titles are less readable).
+- The default setting makes for long lines of text / a wide view, which makes the whole document less readable.
+- That the R-code is displayed in wide format is great, because one can easily read all of it without scrolling.
+- When R results are displayed and information does not fit within the (width of the) results window it becomes longer, which messes up the flow of the text. This is annoying. Especially when the remaining information fills only a small portion of the (width of the) results window.
+- The available headings do not differ enough, leaving us with a very chunky layout.
+- The figure captions cannot be fine-tuned enough. The default placement, size and markup are awkward.
+
+Possible solutions?
+
+- Making the width of the text smaller (Tufte style).
+- Hiding most of the code chunks if they are wider / longer, while providing the user with an option to expand the window. This way wider / longer chunks won't disrupt the flow of the text so much (short and narrow chunks won't need expanding, of course). When there's no need for a wide code-window, it won't be displayed.
+- Figure captions should be displayed in the sidebar (Tufte style), or clearly recognizable as captions when displayed above / below figures. 
+
 
 ## Software Environment
 
