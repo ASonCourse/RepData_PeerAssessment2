@@ -392,6 +392,8 @@ Possible solututions?
 
 - Adjusting the Tufte style. Actually it seems like merging elements of the regular style with elements from tufte is what I want.
 
+See this [link] (https://rstudio.github.io/tufte/) for more info about tufte styled output.
+
 ## Software Environment
 
 ```{r print_software_environment, message=FALSE, warning=FALSE, cache=TRUE}
