@@ -216,6 +216,8 @@ h1 > code, h2 > code, h3 > code { font-size: 0.80em; }
 
 .marginnote > code, .sidenote > code { font-size: 1rem; }
 
+pre.r { width: 90%; }
+
 pre.code { font-size: 0.9rem;
            width: 52.5%;
            margin-left: 2.5%;
