@@ -377,6 +377,19 @@ Possible solutions?
 - Hiding most of the code chunks if they are wider / longer, while providing the user with an option to expand the window. This way wider / longer chunks won't disrupt the flow of the text so much (short and narrow chunks won't need expanding, of course). When there's no need for a wide code-window, it won't be displayed.
 - Figure captions should be displayed in the sidebar (Tufte style), or clearly recognizable as captions when displayed above / below figures. 
 
+## Comments on HTML-output (Tufte)
+
+- The narrower display of text makes for easier reading.
+- The size of the type inside of the code chunks is (way) to big.
+- The way code gets forced into a narrow window seems unnatural. The abundance of scroll bars disrupts the flow of the text.
+- Code that does not need to be squeezed (no scroll bar) blends into the regular text to much. The same goes for inline code and results (R output).
+- The headings are too course; subheadings are too small.
+- The light yellow background does not match with the background of plots.
+- The serif font seems out of place for text that will be displayed on a screen.
+
+Possible solututions?
+
+- Adjusting the Tufte style. Actually it seems like merging elements of the regular style with elements from tufte is what I want.
 
 ## Software Environment
 
