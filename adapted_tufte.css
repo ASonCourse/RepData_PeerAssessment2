@@ -45,6 +45,8 @@ h1 { font-weight: 400;
      margin-bottom: 1.5rem;
      font-size: 3.2rem;
      line-height: 1; }
+     
+h1.title.toc-ignore { max-width: 55% !important; }
 
 h2 { font-style: italic;
      font-weight: 400;
