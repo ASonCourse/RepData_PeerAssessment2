@@ -4,7 +4,8 @@ author: "ASonCourse"
 date: "`r Sys.Date()`"
 output:
   tufte::tufte_html:
-    tufte_features: ["fonts", "italics"]
+    tufte_features: ["fonts", "background", "italics"]
+    css: "adapted_tufte.css"
 ---
 
 ## Summary
